@@ -10,7 +10,7 @@ Cada proyecto se encuentra alojado en una **rama independiente** con sus depende
 
 | Rama | Proyecto | Tecnología | Descripción |
 | :--- | :--- | :--- | :--- |
-| [`parcial`](https://github.com/jbrayner123/Desarrollo-Movil/tree/parcial) | **Parcial 1: Sistema Hospitalario** | React + Ionic React | Contiene los 2 ejercicios del examen: PWA React (Gestión de Pacientes) e Ionic App (Visitas Médicas Domiciliarias) junto con sus evidencias fotográficas. |
+| [`parcial1-jose-brayner-minotta`](https://github.com/jbrayner123/Desarrollo-Movil/tree/parcial1-jose-brayner-minotta) | **Parcial 1: Sistema Hospitalario** | React + Ionic React | Contiene los 2 ejercicios del examen: PWA React (Gestión de Pacientes) e Ionic App (Visitas Médicas Domiciliarias) junto con sus evidencias fotográficas. |
 | [`challenger-01`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-01) | **Reto 1: Gestor de Contactos** | React + Vite | Componentes funcionales modulares (`Header`, `ContactForm`, `ContactList`, `ContactItem`, `Loader`) y manejo de estado CRUD con `useState` y `useEffect`. |
 | [`challenger-02`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-02) | **Reto 2: Gestor PWA** | React + Vite PWA | Evolución PWA con Service Worker, estrategia híbrida de caché (Precaché + Runtime Caching), manifest y despliegue en producción en Netlify. |
 | [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-03) | **Reto 3: Task Manager Móvil** | Ionic React + Capacitor | Gestor de tareas con componentes nativos de Ionic (`IonPage`, `IonCard`, `IonCheckbox`), tachado dinámico y archivo compilado `TaskManager.apk` listo para Android. |
@@ -28,11 +28,11 @@ git clone https://github.com/jbrayner123/Desarrollo-Movil.git
 cd Desarrollo-Movil
 
 # 2. Cambiar a la rama del proyecto que desees revisar:
-git checkout parcial         # Examen Parcial 1
-git checkout challenger-01   # Reto 1: React Repaso
-git checkout challenger-02   # Reto 2: PWA Netlify
-git checkout challenger-03   # Reto 3: Ionic Task Manager + APK
-git checkout challenger-04   # Reto 4: Ionic Storage & Auth
+git checkout parcial1-jose-brayner-minotta   # Examen Parcial 1
+git checkout challenger-01                  # Reto 1: React Repaso
+git checkout challenger-02                  # Reto 2: PWA Netlify
+git checkout challenger-03                  # Reto 3: Ionic Task Manager + APK
+git checkout challenger-04                  # Reto 4: Ionic Storage & Auth
 
 # 3. En cada rama, instalar dependencias y ejecutar:
 npm install
