@@ -1,64 +1,114 @@
 /* src/App.css */
 
-.container-responsive {
-  max-width: 500px;
+/* ========================================================
+   CONTENEDOR RESPONSIVO (Mantiene el diseño del Reto 3)
+   ======================================================== */
+.container-responsive,
+.login-wrapper {
+  max-width: 520px;
   margin: 0 auto;
-  padding: 6px 4px 30px 4px;
+  padding: 12px 10px 80px 10px;
 }
 
-/* Tarjetas limpias y minimalistas */
+/* ========================================================
+   TARJETAS LIMPIAS Y MINIMALISTAS
+   ======================================================== */
 ion-card {
-  border-radius: 14px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
   border: 1px solid #e2e8f0;
-  margin-bottom: 16px;
+  margin: 12px 0 16px 0;
   background: #ffffff !important;
+  overflow: hidden;
 }
 
 ion-card-title {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #0f172a;
 }
 
-/* Input moderno y sencillo */
-.task-input-item {
-  --background: #f8fafc;
-  --border-radius: 10px;
-  --highlight-color-focused: #3880ff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  margin-top: 4px;
-  transition: border-color 0.2s;
+ion-card-subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-top: 2px;
 }
 
+/* ========================================================
+   INPUTS MODERNOS
+   ======================================================== */
+.custom-input-item,
+.task-input-item {
+  --background: #f8fafc;
+  --border-radius: 12px;
+  --highlight-color-focused: #3880ff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-input-item:focus-within,
 .task-input-item:focus-within {
   border-color: #3880ff;
   background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(56, 128, 255, 0.12);
 }
 
+/* ========================================================
+   BOTONES
+   ======================================================== */
+.btn-modern,
 .btn-add-task {
-  --border-radius: 10px;
+  --border-radius: 12px;
+  --box-shadow: 0 3px 8px rgba(56, 128, 255, 0.22);
   font-weight: 600;
   font-size: 0.95rem;
-  height: 44px;
+  height: 46px;
   margin-top: 14px;
+  transition: transform 0.1s ease;
 }
 
-/* Insignias minimalistas */
+.btn-modern:active,
+.btn-add-task:active {
+  transform: scale(0.99);
+}
+
+/* ========================================================
+   INSIGNIAS Y CHIPS (Pills del Reto 3)
+   ======================================================== */
 .badge-pill {
   border-radius: 12px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
+  padding: 5px 11px;
+  font-size: 0.78rem;
   font-weight: 600;
 }
 
-/* Items de tarea */
+/* ========================================================
+   ITEMS DE TAREA (Lista del Reto 3)
+   ======================================================== */
 .task-item-modern {
-  --padding-start: 8px;
-  --padding-end: 4px;
-  border-radius: 8px;
-  margin-bottom: 4px;
+  --padding-start: 10px;
+  --padding-end: 8px;
+  --inner-padding-end: 6px;
+  --background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.task-item-modern:hover {
+  background-color: #f8fafc;
+}
+
+.task-title-link {
+  cursor: pointer;
+  display: block;
+}
+
+.task-title-link:hover h2 {
+  color: #3880ff;
 }
 
 .btn-delete-task {
@@ -68,4 +118,89 @@ ion-card-title {
 
 .btn-delete-task:hover {
   --color: #ef4444;
+}
+
+.btn-edit-task {
+  --color: #64748b;
+  transition: color 0.15s ease;
+}
+
+.btn-edit-task:hover {
+  --color: #3880ff;
+}
+
+/* ========================================================
+   PÁGINAS DE LOGIN Y REGISTRO
+   ======================================================== */
+.auth-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: #eff6ff;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.auth-hero-icon ion-icon {
+  font-size: 30px;
+  color: var(--ion-color-primary, #3880ff);
+}
+
+.demo-credentials-box {
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 18px;
+  font-size: 0.85rem;
+}
+
+.demo-credentials-box code {
+  color: #2563eb;
+  background-color: #eff6ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* ========================================================
+   PANTALLA DE DETALLE DE TAREA
+   ======================================================== */
+.detail-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.detail-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.detail-desc-box {
+  background-color: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 14px;
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 10px 0 18px 0;
+  white-space: pre-wrap;
+}
+
+/* ========================================================
+   BOTÓN FLOTANTE (FAB)
+   ======================================================== */
+ion-fab-button {
+  --box-shadow: 0 4px 14px rgba(56, 128, 255, 0.4);
 }
