@@ -1,6 +1,6 @@
 # Desarrollo de Aplicaciones Web y Móviles
 
-Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **4 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite** e **Ionic React**.
+Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **5 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React** y **Firebase**.
 
 ---
 
@@ -15,6 +15,7 @@ Cada proyecto se encuentra alojado en una **rama independiente** con sus depende
 | [`challenger-02`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-02) | **Reto 2: Gestor PWA** | React + Vite PWA | Evolución PWA con Service Worker, estrategia híbrida de caché (Precaché + Runtime Caching), manifest y despliegue en producción en Netlify. |
 | [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-03) | **Reto 3: Task Manager Móvil** | Ionic React + Capacitor | Gestor de tareas con componentes nativos de Ionic (`IonPage`, `IonCard`, `IonCheckbox`), tachado dinámico y archivo compilado `TaskManager.apk` listo para Android. |
 | [`challenger-04`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-04) | **Reto 4: Storage y Rutas Protegidas** | Ionic React + TypeScript | Flujo de autenticación con credenciales demo, almacenamiento de token en `localStorage`, protección de rutas con recarga y cierre de sesión (Logout). |
+| [`challenger-05`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-05) | **Reto 5: Firebase Auth & Task Manager Pro** | Ionic React + TypeScript + Firebase | Autenticación completa con Firebase Auth, Context API desacoplada (`AuthContext`, `TasksContext`), aislamiento de tareas por usuario y rutas protegidas. |
 
 ---
 
@@ -33,6 +34,7 @@ git checkout challenger-01                  # Reto 1: React Repaso
 git checkout challenger-02                  # Reto 2: PWA Netlify
 git checkout challenger-03                  # Reto 3: Ionic Task Manager + APK
 git checkout challenger-04                  # Reto 4: Ionic Storage & Auth
+git checkout challenger-05                  # Reto 5: Firebase Auth & Context API
 
 # 3. En cada rama, instalar dependencias y ejecutar:
 npm install
