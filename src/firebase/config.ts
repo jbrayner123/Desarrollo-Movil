@@ -4,14 +4,14 @@ import { getAuth, Auth } from 'firebase/auth';
 
 /**
  * =========================================================================
- * ⚙️ CONFIGURACIÓN DE FIREBASE (Challenge 05)
+ * CONFIGURACION DE FIREBASE (Challenge 05)
  * =========================================================================
  * Para conectar con tu propia consola de Firebase:
  * 1. Ve a https://console.firebase.google.com/
  * 2. Selecciona o crea tu proyecto.
- * 3. En la sección "Authentication" -> "Sign-in method", activa "Correo electrónico/contraseña".
- * 4. Ve a Configuración del Proyecto (icono de engranaje) -> General -> Tus apps -> Web (</>).
- * 5. Copia los valores de tu objeto firebaseConfig y pégalos aquí abajo:
+ * 3. En la seccion "Authentication" -> "Sign-in method", activa "Correo electronico/contrasena".
+ * 4. Ve a Configuracion del Proyecto -> General -> Tus apps -> Web (</>).
+ * 5. Copia los valores de tu objeto firebaseConfig y pegalos aqui abajo:
  */
 const firebaseConfig = {
   apiKey: "AIzaSyDemoPlaceholderKey_ColocaTuApiKeyAqui",
@@ -22,8 +22,8 @@ const firebaseConfig = {
   appId: "1:123456789012:web:abcdef1234567890"
 };
 
-// Inicialización de la aplicación Firebase (patrón Singleton para evitar múltiples instancias)
+// Inicializacion de la aplicacion Firebase (patron Singleton para evitar multiples instancias)
 export const app: FirebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-// Inicialización del servicio modular de autenticación
+// Inicializacion del servicio modular de autenticacion
 export const auth: Auth = getAuth(app);

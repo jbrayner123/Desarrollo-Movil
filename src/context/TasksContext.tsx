@@ -1,18 +1,19 @@
 // src/context/TasksContext.tsx
 import React, { createContext, useContext, ReactNode } from 'react';
 import { useTasks } from '../hooks/useTasks';
+import { useAuthContext } from './AuthContext';
 import { Task } from '../types/task';
 
 export interface TasksContextType {
   tasks: Task[];
-  addTask: (data: Omit<Task, 'id' | 'createdAt'>) => Task;
-  updateTask: (id: string, updatedFields: Partial<Omit<Task, 'id' | 'createdAt'>>) => void;
+  addTask: (data: Omit<Task, 'id' | 'createdAt' | 'userId'>) => Task;
+  updateTask: (id: string, updatedFields: Partial<Omit<Task, 'id' | 'createdAt' | 'userId'>>) => void;
   deleteTask: (id: string) => void;
   toggleTaskStatus: (id: string) => void;
   getTaskById: (id: string) => Task | undefined;
 }
 
-// 1. Creación del contexto de Tareas
+// 1. Creacion del contexto de Tareas
 export const TasksContext = createContext<TasksContextType | undefined>(undefined);
 
 interface TasksProviderProps {
@@ -20,11 +21,12 @@ interface TasksProviderProps {
 }
 
 /**
- * Proveedor de Tareas que envuelve las páginas de la aplicación
- * Permite que cualquier componente acceda y modifique el listado sin prop drilling.
+ * Proveedor de Tareas que envuelve las paginas de la aplicacion
+ * Permite que cada usuario maneje sus propias tareas aisladas sin compartirlas con otros usuarios.
  */
 export const TasksProvider: React.FC<TasksProviderProps> = ({ children }) => {
-  const tasksOperations = useTasks();
+  const { user } = useAuthContext();
+  const tasksOperations = useTasks(user?.uid);
 
   return (
     <TasksContext.Provider value={tasksOperations}>

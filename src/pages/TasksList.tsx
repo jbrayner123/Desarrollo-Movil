@@ -36,14 +36,14 @@ import { useTasksContext } from '../context/TasksContext';
 
 /**
  * Pantalla principal del Dashboard: Lista de Tareas
- * Mantiene la estética visual del Reto 3 con FAB y opciones CRUD completas
+ * Mantiene la estetica visual del Reto 3 con FAB y opciones CRUD completas
  */
 const TasksList: React.FC = () => {
   const router = useIonRouter();
   const { user, logout } = useAuthContext();
   const { tasks, toggleTaskStatus, deleteTask } = useTasksContext();
 
-  // Estados para alertas de confirmación
+  // Estados para alertas de confirmacion
   const [showLogoutAlert, setShowLogoutAlert] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
@@ -71,8 +71,8 @@ const TasksList: React.FC = () => {
           <IonButtons slot="end">
             <IonButton
               onClick={() => setShowLogoutAlert(true)}
-              title="Cerrar Sesión"
-              aria-label="Cerrar Sesión"
+              title="Cerrar Sesion"
+              aria-label="Cerrar Sesion"
             >
               <IonIcon slot="icon-only" icon={logOutOutline} />
             </IonButton>
@@ -82,16 +82,16 @@ const TasksList: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding">
         <div className="container-responsive">
-          {/* Tarjeta de bienvenida con información del usuario autenticado */}
+          {/* Tarjeta con informacion del usuario autenticado */}
           <IonCard>
             <IonCardHeader>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <IonCardTitle style={{ fontSize: '1.15rem' }}>
-                    ¡Hola, {user?.email ? user.email.split('@')[0] : 'Usuario'}! 👋
+                    Bienvenido, {user?.email ? user.email.split('@')[0] : 'Usuario'}
                   </IonCardTitle>
                   <IonNote color="medium" style={{ fontSize: '0.82rem' }}>
-                    Sesión activa: {user?.email || 'Autenticado'}
+                    Sesion activa: {user?.email || 'Autenticado'}
                   </IonNote>
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>
@@ -106,7 +106,7 @@ const TasksList: React.FC = () => {
             </IonCardHeader>
           </IonCard>
 
-          {/* Listado de tareas con estética del Reto 3 */}
+          {/* Listado de tareas con estetica del Reto 3 */}
           <IonCard>
             <IonCardHeader style={{ paddingBottom: '8px' }}>
               <IonCardTitle style={{ fontSize: '1.1rem' }}>Listado de Actividades</IonCardTitle>
@@ -117,7 +117,7 @@ const TasksList: React.FC = () => {
                 <IonItem lines="none" className="ion-text-center">
                   <IonLabel color="medium">
                     <p style={{ padding: '24px 0', fontSize: '0.98rem' }}>
-                      No tienes tareas registradas. Presiona el botón <strong>+</strong> para crear una.
+                      No tienes tareas registradas. Presiona el boton <strong>+</strong> para crear una.
                     </p>
                   </IonLabel>
                 </IonItem>
@@ -132,7 +132,7 @@ const TasksList: React.FC = () => {
                       aria-label={`Marcar como completada ${task.title}`}
                     />
 
-                    {/* Texto con tachado condicional e interacción a detalle */}
+                    {/* Texto con tachado condicional e interaccion a detalle */}
                     <IonLabel
                       className="task-title-link"
                       onClick={() => router.push(`/tasks/${task.id}`, 'forward', 'push')}
@@ -158,7 +158,7 @@ const TasksList: React.FC = () => {
                       </div>
                     </IonLabel>
 
-                    {/* Botón para ver detalle */}
+                    {/* Boton para ver detalle */}
                     <IonButton
                       slot="end"
                       fill="clear"
@@ -170,7 +170,7 @@ const TasksList: React.FC = () => {
                       <IonIcon slot="icon-only" icon={eyeOutline} />
                     </IonButton>
 
-                    {/* Botón para editar */}
+                    {/* Boton para editar */}
                     <IonButton
                       slot="end"
                       fill="clear"
@@ -182,7 +182,7 @@ const TasksList: React.FC = () => {
                       <IonIcon slot="icon-only" icon={createOutline} />
                     </IonButton>
 
-                    {/* Botón para eliminar */}
+                    {/* Boton para eliminar */}
                     <IonButton
                       slot="end"
                       fill="clear"
@@ -200,7 +200,7 @@ const TasksList: React.FC = () => {
           </IonCard>
         </div>
 
-        {/* Botón de Acción Flotante (FAB) para crear tarea */}
+        {/* Boton de Accion Flotante (FAB) para crear tarea */}
         <IonFab vertical="bottom" horizontal="end" slot="fixed" style={{ margin: '0 8px 12px 0' }}>
           <IonFabButton
             color="primary"
@@ -212,31 +212,31 @@ const TasksList: React.FC = () => {
           </IonFabButton>
         </IonFab>
 
-        {/* Alerta de confirmación para Cerrar Sesión */}
+        {/* Alerta de confirmacion para Cerrar Sesion */}
         <IonAlert
           isOpen={showLogoutAlert}
           onDidDismiss={() => setShowLogoutAlert(false)}
-          header="Cerrar Sesión"
-          message="¿Estás seguro de que deseas salir del sistema?"
+          header="Cerrar Sesion"
+          message="Deseas salir del sistema?"
           buttons={[
             {
               text: 'Cancelar',
               role: 'cancel',
             },
             {
-              text: 'Cerrar Sesión',
+              text: 'Cerrar Sesion',
               role: 'destructive',
               handler: handleConfirmLogout,
             },
           ]}
         />
 
-        {/* Alerta de confirmación para Eliminar Tarea */}
+        {/* Alerta de confirmacion para Eliminar Tarea */}
         <IonAlert
           isOpen={!!taskToDelete}
           onDidDismiss={() => setTaskToDelete(null)}
           header="Eliminar Tarea"
-          message="Esta acción no se puede deshacer. ¿Deseas eliminar la tarea?"
+          message="Esta accion no se puede deshacer. Deseas eliminar la tarea?"
           buttons={[
             {
               text: 'Cancelar',

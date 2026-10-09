@@ -24,8 +24,8 @@ import { logInOutline, lockClosedOutline, personAddOutline } from 'ionicons/icon
 import { useAuthContext } from '../context/AuthContext';
 
 /**
- * Pantalla de Inicio de Sesión (Login)
- * Integra autenticación con Firebase mediante AuthContext
+ * Pantalla de Inicio de Sesion (Login)
+ * Integra autenticacion con Firebase mediante AuthContext
  */
 const Login: React.FC = () => {
   const router = useIonRouter();
@@ -43,17 +43,17 @@ const Login: React.FC = () => {
 
     // Validaciones de formulario
     if (!email.trim() || !password.trim()) {
-      setLocalError('Por favor ingresa tu correo y contraseña.');
+      setLocalError('Por favor ingresa tu correo y contrasena.');
       return;
     }
 
     if (!email.includes('@')) {
-      setLocalError('El correo electrónico no tiene un formato válido.');
+      setLocalError('El correo electronico no tiene un formato valido.');
       return;
     }
 
     if (password.length < 6) {
-      setLocalError('La contraseña debe tener al menos 6 caracteres.');
+      setLocalError('La contrasena debe tener al menos 6 caracteres.');
       return;
     }
 
@@ -82,15 +82,15 @@ const Login: React.FC = () => {
               <div className="auth-hero-icon">
                 <IonIcon icon={lockClosedOutline} />
               </div>
-              <IonCardTitle>Iniciar Sesión</IonCardTitle>
-              <IonCardSubtitle>Accede a tu gestor de tareas móvil</IonCardSubtitle>
+              <IonCardTitle>Iniciar Sesion</IonCardTitle>
+              <IonCardSubtitle>Accede a tu gestor de tareas movil</IonCardSubtitle>
             </IonCardHeader>
 
             <IonCardContent>
               <form onSubmit={handleSubmit}>
                 <IonItem lines="none" className="custom-input-item">
                   <IonInput
-                    label="Correo Electrónico"
+                    label="Correo Electronico"
                     labelPlacement="floating"
                     type="email"
                     placeholder="usuario@ejemplo.com"
@@ -102,10 +102,10 @@ const Login: React.FC = () => {
 
                 <IonItem lines="none" className="custom-input-item">
                   <IonInput
-                    label="Contraseña"
+                    label="Contrasena"
                     labelPlacement="floating"
                     type="password"
-                    placeholder="Mínimo 6 caracteres"
+                    placeholder="Minimo 6 caracteres"
                     value={password}
                     onIonInput={(e) => setPassword(e.detail.value || '')}
                     required
@@ -130,22 +130,22 @@ const Login: React.FC = () => {
                   onClick={() => router.push('/register', 'forward', 'push')}
                 >
                   <IonIcon slot="start" icon={personAddOutline} />
-                  ¿No tienes cuenta? Regístrate aquí
+                  No tienes cuenta? Registrate aqui
                 </IonButton>
               </form>
 
-              {/* Indicaciones para evaluación en clase */}
+              {/* Indicaciones para evaluacion en clase */}
               <div className="demo-credentials-box ion-text-center">
                 <IonNote color="medium">
-                  <strong>ℹ️ Modo Evaluación:</strong><br />
-                  Puedes ingresar con cualquier correo válido y clave (mínimo 6 caracteres) o registrar un nuevo usuario con Firebase Console.
+                  <strong>Modo Evaluacion:</strong><br />
+                  Puedes ingresar con cualquier correo valido y clave (minimo 6 caracteres) o registrar un nuevo usuario con Firebase Console.
                 </IonNote>
               </div>
             </IonCardContent>
           </IonCard>
         </div>
 
-        {/* Notificación Toast para feedback de errores */}
+        {/* Notificacion Toast para feedback de errores */}
         <IonToast
           isOpen={!!localError || !!error}
           onDidDismiss={() => {
