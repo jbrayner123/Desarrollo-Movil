@@ -6,10 +6,9 @@ El proyecto implementa una arquitectura desacoplada donde cada sensor nativo cue
 
 ---
 
-## 1. Arquitectura de Directorios (`challenger-07/src/`)
+## 1. Arquitectura de Directorios (`src/`)
 
 ```text
-challenger-07/
 ├── android/                         <-- Proyecto nativo Android generado con Capacitor
 │   └── app/src/main/AndroidManifest.xml <-- Permisos de GPS, camara, vibracion, notificaciones
 ├── challenger-07-debug.apk          <-- APK de depuracion compilado para pruebas fisicas
@@ -86,11 +85,8 @@ challenger-07/
 ---
 
 ## 4. Instrucciones de Compilacion y Ejecucion
-
+ 
 ```bash
-# Entrar a la carpeta del reto
-cd challenger-07
-
 # 1. Instalar dependencias
 npm install
 
@@ -108,6 +104,6 @@ cd android
 ./gradlew assembleDebug
 
 # El APK queda ubicado en:
-# challenger-07/android/app/build/outputs/apk/debug/app-debug.apk
-# challenger-07/challenger-07-debug.apk
+# android/app/build/outputs/apk/debug/app-debug.apk
+# challenger-07-debug.apk
 ```
