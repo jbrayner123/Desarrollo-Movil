@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Sensores Lab</string>
+    <string name="title_activity_main">Sensores Lab</string>
+    <string name="package_name">com.desarrollomovil.sensoreslab</string>
+    <string name="custom_url_scheme">com.desarrollomovil.sensoreslab</string>
+</resources>

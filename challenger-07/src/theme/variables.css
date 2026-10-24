@@ -1,0 +1,146 @@
+/* challenger-07/src/theme/variables.css */
+/* Estilo de Telemetria de Hardware y Sensores Nativos - Alto Contraste */
+
+:root {
+  --ion-color-primary: #0284c7;
+  --ion-color-primary-rgb: 2, 132, 199;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #0369a1;
+  --ion-color-primary-tint: #38bdf8;
+
+  --ion-color-secondary: #0f766e;
+  --ion-color-secondary-rgb: 15, 118, 110;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade: #115e59;
+  --ion-color-secondary-tint: #14b8a6;
+
+  --ion-color-tertiary: #4f46e5;
+  --ion-color-tertiary-rgb: 79, 70, 229;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-shade: #4338ca;
+  --ion-color-tertiary-tint: #6366f1;
+
+  --ion-color-success: #16a34a;
+  --ion-color-success-rgb: 22, 163, 74;
+  --ion-color-success-contrast: #ffffff;
+
+  --ion-color-warning: #d97706;
+  --ion-color-warning-rgb: 217, 119, 6;
+  --ion-color-warning-contrast: #ffffff;
+
+  --ion-color-danger: #dc2626;
+  --ion-color-danger-rgb: 220, 38, 38;
+  --ion-color-danger-contrast: #ffffff;
+
+  --ion-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --telemetry-font-mono: "SF Mono", "JetBrains Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.sensor-grid-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px 12px 40px 12px;
+}
+
+/* Tarjetas tecnicas de telemetria */
+.telemetry-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.telemetry-card-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.telemetry-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.telemetry-card-content {
+  padding: 16px;
+}
+
+/* Pantalla de datos numericos monoespaciados */
+.telemetry-display-box {
+  background: #0f172a;
+  color: #38bdf8;
+  font-family: var(--telemetry-font-mono);
+  font-size: 0.90rem;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  margin-bottom: 14px;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.90rem;
+}
+
+.telemetry-row:last-child {
+  border-bottom: none;
+}
+
+.telemetry-label {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.telemetry-val {
+  font-family: var(--telemetry-font-mono);
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Boton de accion solido */
+.btn-sensor-action {
+  --border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  height: 44px;
+  margin: 6px 0;
+}
+
+/* Alerta de Shake */
+.shake-alert-box {
+  background: #fef2f2;
+  border: 2px solid #ef4444;
+  color: #991b1b;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  animation: pulse-shake 0.4s infinite alternate;
+}
+
+@keyframes pulse-shake {
+  from { transform: scale(1); background-color: #fee2e2; }
+  to { transform: scale(1.02); background-color: #fca5a5; }
+}
