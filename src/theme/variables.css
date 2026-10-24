@@ -1,0 +1,342 @@
+/* Ionic Variables & Theme Configuration - Technical Minimalist Dark */
+
+:root {
+  --ion-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  
+  --ion-color-primary: #0284c7;
+  --ion-color-primary-rgb: 2, 132, 199;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #0369a1;
+  --ion-color-primary-tint: #38bdf8;
+
+  --ion-color-success: #10b981;
+  --ion-color-success-rgb: 16, 185, 129;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-shade: #059669;
+  --ion-color-success-tint: #34d399;
+
+  --ion-color-danger: #ef4444;
+  --ion-color-danger-rgb: 239, 68, 68;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-shade: #dc2626;
+  --ion-color-danger-tint: #f87171;
+
+  --ion-background-color: #0b1120;
+  --ion-background-color-rgb: 11, 17, 32;
+  --ion-text-color: #f1f5f9;
+  --ion-text-color-rgb: 241, 245, 249;
+
+  --ion-card-background: #131d33;
+  --ion-item-background: #131d33;
+  --ion-toolbar-background: #0f172a;
+  --ion-border-color: #1e293b;
+}
+
+/* Custom technical styling utilities */
+body {
+  background-color: #0b1120;
+  color: #f1f5f9;
+}
+
+.tech-panel {
+  background: #131d33;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.tech-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 8px;
+}
+
+.tech-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+}
+
+.tech-badge.connected {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.tech-badge.disconnected {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.live-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #131d33;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid #0284c7;
+  overflow: hidden;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-overlay-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  font-size: 13px;
+  color: #38bdf8;
+  border-top: 1px solid #1e293b;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-email {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-badge {
+  margin-top: 6px;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.task-item {
+  --background: #131d33;
+  --border-color: #1e293b;
+  --border-width: 0 0 1px 0;
+  --padding-start: 12px;
+  --padding-end: 8px;
+  margin-bottom: 4px;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+}
+
+.task-title-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.task-title-completed {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+.task-meta {
+  font-size: 0.72rem;
+  color: #475569;
+  letter-spacing: 0.04em;
+}
+
+.input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #131d33;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-bottom: 16px;
+}
+
+.input-container:focus-within {
+  border-color: #0284c7;
+}
+
+.auth-card {
+  max-width: 420px;
+  margin: 32px auto;
+  background: #131d33;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+}
+
+.auth-header p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.auth-nav-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: #0f172a;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #1e293b;
+}
+
+.auth-tab-btn {
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  color: #94a3b8;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.auth-tab-btn.active {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.auth-input-group {
+  margin-bottom: 16px;
+}
+
+.auth-label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.auth-input-field {
+  width: 100%;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #f1f5f9;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+}
+
+.auth-input-field:focus {
+  outline: none;
+  border-color: #0284c7;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}

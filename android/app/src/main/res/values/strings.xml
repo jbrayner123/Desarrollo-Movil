@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Supabase Tasks Lab</string>
+    <string name="title_activity_main">Supabase Tasks Lab</string>
+    <string name="package_name">com.desarrollomovil.supabasetasks</string>
+    <string name="custom_url_scheme">com.desarrollomovil.supabasetasks</string>
+</resources>

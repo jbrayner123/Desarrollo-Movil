@@ -1,63 +1,113 @@
-# Desarrollo de Aplicaciones Web y Móviles
+# Challenge 08: Supabase Auth, PostgreSQL RLS, Realtime y Storage
 
-Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **7 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React**, **Capacitor**, **Firebase** (Auth, Cloud Firestore, Realtime Database), **Dexie.js (IndexedDB)** y **Sensores Nativos de Hardware**.
+Aplicacion movil desarrollada con **Ionic Framework** (`@ionic/react`), **TypeScript**, **Capacitor** y **Supabase** (`@supabase/supabase-js`), correspondiente al **Challenge 08** del curso de *Desarrollo de Software para Plataformas Moviles*.
 
----
-
-## 📌 Organización del Repositorio por Ramas
-
-Cada proyecto se encuentra alojado en una **rama independiente** con sus dependencias y código fuente listos para su compilación y ejecución directa:
-
-| Rama | Proyecto | Tecnología | Descripción |
-| :--- | :--- | :--- | :--- |
-| [`parcial1-jose-brayner-minotta`](https://github.com/jbrayner123/Desarrollo-Movil/tree/parcial1-jose-brayner-minotta) | **Parcial 1: Sistema Hospitalario** | React + Ionic React | Contiene los 2 ejercicios del examen: PWA React (Gestión de Pacientes) e Ionic App (Visitas Médicas Domiciliarias) junto con sus evidencias fotográficas. |
-| [`challenger-01`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-01) | **Reto 1: Gestor de Contactos** | React + Vite | Componentes funcionales modulares (`Header`, `ContactForm`, `ContactList`, `ContactItem`, `Loader`) y manejo de estado CRUD con `useState` y `useEffect`. |
-| [`challenger-02`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-02) | **Reto 2: Gestor PWA** | React + Vite PWA | Evolución PWA con Service Worker, estrategia híbrida de caché (Precaché + Runtime Caching), manifest y despliegue en producción en Netlify. |
-| [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-03) | **Reto 3: Task Manager Móvil** | Ionic React + Capacitor | Gestor de tareas con componentes nativos de Ionic (`IonPage`, `IonCard`, `IonCheckbox`), tachado dinámico y archivo compilado `TaskManager.apk` listo para Android. |
-| [`challenger-04`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-04) | **Reto 4: Storage y Rutas Protegidas** | Ionic React + TypeScript | Flujo de autenticación con credenciales demo, almacenamiento de token en `localStorage`, protección de rutas con recarga y cierre de sesión (Logout). |
-| [`challenger-05`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-05) | **Reto 5: Firebase Auth & Task Manager Pro** | Ionic React + TypeScript + Firebase | Autenticación completa con Firebase Auth, Context API desacoplada (`AuthContext`, `TasksContext`), aislamiento de tareas por usuario y rutas protegidas. |
-| [`challenger-06`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-06) | **Reto 6: Persistencia Multi-Motor y Sensor de Red** | Ionic React + TypeScript + Firestore + RTDB + Dexie + Capacitor | Persistencia en tres capas: Contactos en Cloud Firestore (`useCollection`), Tareas en Realtime Database (`useRealTimeCollection`), Frutas en Dexie IndexedDB (`useDexie`) offline-first y sensor `@capacitor/network` con bloqueo de escritura cuando `isOnline === false`. |
-| [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-07) | **Reto 7: Laboratorio de Sensores Nativos** | Ionic React + TypeScript + Capacitor + APK Android | Panel de control de hardware (`Home.tsx`) y 9 pantallas dedicadas con Custom Hooks para Geolocation (GPS y tracking en vivo), Cámara (captura y galería), Acelerómetro (ejes X/Y/Z y detector Shake), Dispositivo (batería y UUID), Hápticos (impactos y vibración), Filesystem (lectura/escritura en Documents), Notificaciones Locales (programables), Push Notifications (FCM) y Red, con APK compilado `challenger-07-debug.apk`. |
+La aplicacion implementa autenticacion de usuarios, persistencia en base de datos PostgreSQL protegida mediante politicas de seguridad a nivel de fila (Row Level Security - RLS), sincronizacion en vivo reactiva con Supabase Realtime (`postgres_changes`) y captura de imagenes con la camara nativa (`@capacitor/camera`) almacenadas en el bucket publico `avatars` de Supabase Storage.
 
 ---
 
-## 💻 Instrucciones para Clonar y Cambiar de Rama
+## 1. Arquitectura de Directorios (`src/`)
 
-Para clonar el repositorio completo y navegar entre los diferentes proyectos:
-
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/jbrayner123/Desarrollo-Movil.git
-cd Desarrollo-Movil
-
-# 2. Cambiar a la rama del proyecto que desees revisar:
-git checkout parcial1-jose-brayner-minotta   # Examen Parcial 1: PWA + Ionic
-git checkout challenger-01                  # Reto 1: React Repaso
-git checkout challenger-02                  # Reto 2: PWA Netlify
-git checkout challenger-03                  # Reto 3: Ionic Task Manager + APK
-git checkout challenger-04                  # Reto 4: Ionic Storage & Auth
-git checkout challenger-05                  # Reto 5: Firebase Auth & Context API
-git checkout challenger-06                  # Reto 6: Firestore + Realtime DB + Dexie + Network
-git checkout challenger-07                  # Reto 7: Sensores Nativos + APK Android
-
-# 3. En cada rama, instalar dependencias y ejecutar:
-npm install
-npm run dev
+```text
+├── android/                         <-- Proyecto nativo Android generado con Capacitor
+│   └── app/src/main/AndroidManifest.xml <-- Permisos de Camara, Internet y Almacenamiento
+├── src/
+│   ├── context/
+│   │   └── AuthContext.tsx          <-- Estado global de sesion, login, registro y avatar
+│   ├── lib/
+│   │   └── supabase.ts              <-- Cliente singleton de Supabase (@supabase/supabase-js)
+│   ├── pages/
+│   │   ├── AuthPage.tsx             <-- Pantalla de Login y Registro con validacion
+│   │   └── TasksPage.tsx            <-- CRUD de tareas, lista en vivo Realtime y captura de avatar
+│   ├── theme/
+│   │   └── variables.css            <-- Estetica tecnica sobria y de alto contraste
+│   ├── types/
+│   │   └── index.ts                 <-- Interfaces TypeScript para Tarea y Usuario
+│   ├── App.tsx                      <-- Enrutador Ionic con proteccion de rutas
+│   └── main.tsx                     <-- Punto de entrada de la aplicacion
+├── supabase_setup.sql               <-- Script SQL listo para ejecutar en Supabase SQL Editor
+├── .env.example                     <-- Plantilla de variables de entorno (URL y Anon Key)
+├── capacitor.config.ts              <-- Configuracion de Capacitor (appId: com.desarrollomovil.supabasetasks)
+├── package.json                     <-- Dependencias del proyecto
+├── tsconfig.json                    <-- Configuracion de compilador TypeScript
+└── vite.config.ts                   <-- Bundler Vite
 ```
 
 ---
 
-## 📱 Archivos APK Compilados para Pruebas en Android
+## 2. Configuracion de Base de Datos y Storage en Supabase (`supabase_setup.sql`)
 
-| Proyecto | Archivo APK | Ruta en el Repositorio |
-| :--- | :--- | :--- |
-| **Reto 3** | `TaskManager.apk` | En la rama [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-03/TaskManager.apk) |
-| **Reto 7** | `challenger-07-debug.apk` | En la rama [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-07/challenger-07/challenger-07-debug.apk) |
+El archivo [supabase_setup.sql](file:///c:/Users/ADMIN/Documents/fundamentos%20plataformas%20moviles/supabase_setup.sql) contiene los comandos necesarios para desplegar la estructura en el **SQL Editor** de Supabase:
+
+1. **Tabla `public.tareas`:**
+   - Campos: `id` (bigint identity), `titulo` (text), `completada` (boolean default false), `user_id` (uuid references auth.users default auth.uid()), `created_at` (timestamptz default now()).
+
+2. **Row Level Security (RLS) en `tareas`:**
+   - `ver mis tareas`: `for select to authenticated using ((select auth.uid()) = user_id)`.
+   - `crear mis tareas`: `for insert to authenticated with check ((select auth.uid()) = user_id)`.
+   - `editar mis tareas`: `for update to authenticated using ((select auth.uid()) = user_id)`.
+   - `borrar mis tareas`: `for delete to authenticated using ((select auth.uid()) = user_id)`.
+
+3. **Supabase Realtime:**
+   - Adicion de la tabla `public.tareas` a la publicacion `supabase_realtime` para transmision reactiva de eventos `INSERT`, `UPDATE` y `DELETE`.
+
+4. **Bucket de Storage `avatars`:**
+   - Creacion de bucket publico `avatars`.
+   - Politicas RLS para que cada usuario autenticado gestione unicamente su carpeta identificada con su UID (`(storage.foldername(name))[1] = (select auth.uid())::text`).
+   - Politica de lectura publica para renderizado de avatares en la aplicacion.
 
 ---
 
-## 👤 Información del Estudiante
+## 3. Funcionalidades Implementadas
 
-- **Estudiante**: José Brayner Minotta
-- **Asignatura**: Desarrollo de Aplicaciones Web y Móviles
-- **Repositorio Oficial**: [https://github.com/jbrayner123/Desarrollo-Movil](https://github.com/jbrayner123/Desarrollo-Movil)
+### A. Autenticacion Completa (Supabase Auth)
+- **Registro:** `supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin, data: { nombre } } })`.
+- **Inicio de Sesion:** `supabase.auth.signInWithPassword({ email, password })`.
+- **Sesion Persistente y Reactiva:** `supabase.auth.getSession()` y escucha de eventos mediante `supabase.auth.onAuthStateChange`.
+- **Cierre de Sesion:** `supabase.auth.signOut()` con limpieza de cache local.
+
+### B. CRUD de Tareas con Proteccion RLS
+- **Lectura:** Consulta ordenada por fecha descendente.
+- **Insercion:** Creacion de tareas asignadas implicitamente a `auth.uid()`.
+- **Modificacion:** Actualizacion del estado `completada` y edicion rapida de titulo.
+- **Eliminacion:** Borrado de registros por identificador unico.
+
+### C. Sincronizacion en Tiempo Real (Supabase Realtime)
+- Suscripcion activa al canal `cambios-tareas` escuchando el esquema `public` de la tabla `tareas`.
+- Manejo de mutaciones en vivo sin recarga de pantalla mediante actualizacion atomica del estado React.
+- Indicador visual de estado de conexion al canal Realtime.
+
+### D. Captura de Avatar con Camara Nativa y Subida a Storage
+- Captura mediante plugin `@capacitor/camera` con resolucion optimizada y selector entre Camara y Galeria (mas fallback para entornos web).
+- Conversion de ruta web a `Blob` y subida a la ruta `${user.id}/${Date.now()}-avatar.jpg` dentro del bucket `avatars`.
+- Obtencion de URL publica mediante `getPublicUrl` y recuperacion persistente del avatar mas reciente al iniciar sesion.
+
+---
+
+## 4. Instrucciones de Compilacion y Ejecucion
+
+```bash
+# 1. Instalar dependencias
+npm install
+
+# 2. Configurar variables de entorno (.env)
+# Asigna tus credenciales reales obtenidas del panel de Supabase
+# VITE_SUPABASE_URL=https://xxxx.supabase.co
+# VITE_SUPABASE_KEY=sb_publishable_xxxx
+
+# 3. Servidor web de desarrollo
+npm run dev
+
+# 4. Compilar bundle web
+npm run build
+
+# 5. Sincronizar y compilar plataforma Android
+npx cap add android   # (Solo primera vez)
+npx cap sync android
+cd android
+./gradlew assembleDebug
+
+# El binario compilado queda generado en:
+# android/app/build/outputs/apk/debug/app-debug.apk
+# challenger-08-debug.apk
+```
