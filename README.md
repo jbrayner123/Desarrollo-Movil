@@ -1,126 +1,113 @@
-# Reto 6: Persistencia Multi-Motor (Firestore, Realtime DB, Dexie IndexedDB) y Sensores Nativos de Red
+# Challenge 07: Laboratorio de Sensores Nativos (Hardware Telemetry)
 
-Aplicacion movil desarrollada con **Ionic Framework** (`@ionic/react`), **TypeScript**, **Capacitor** y **Firebase**, correspondiente al **Challenge 06** del curso de *Desarrollo de Software para Plataformas Moviles* (Prof. Jonathan Lopez).
+Aplicacion movil desarrollada con **Ionic Framework** (`@ionic/react`), **TypeScript** y **Capacitor**, correspondiente al **Challenge 07** del curso de *Desarrollo de Software para Plataformas Moviles* (Prof. Jonathan Lopez).
 
-Este proyecto integra tres capas de almacenamiento y persistencia diferenciadas (Cloud Firestore, Firebase Realtime Database y Dexie.js IndexedDB local), junto con el sensor nativo de conectividad `@capacitor/network` para la validacion y bloqueo condicional de acciones de red.
+El proyecto implementa una arquitectura desacoplada donde cada sensor nativo cuenta con su propio **Custom Hook** y su propia **pantalla dedicada de pruebas**, integrando un panel de control principal (`Home.tsx`) y compilacion nativa para Android (`.apk`).
 
 ---
 
-## 1. Arquitectura del Proyecto (`src/`)
+## 1. Arquitectura de Directorios (`challenger-07/src/`)
 
 ```text
-src/
-├── firebase/
-│   └── config.ts             <-- Inicializacion modular con Auth, Firestore (db) y Realtime Database (rtdb)
-├── db/
-│   └── db.ts                 <-- Instancia Dexie ('MiAppDB') con versionado de esquemas para la tabla 'frutas'
-├── hooks/
-│   ├── useCollection.ts      <-- Hook Cloud Firestore con getAll(filters), add(), update(), remove()
-│   ├── useRealTimeCollection.ts <-- Hook Realtime Database con onValue(), getAll(), add(), update(), deleteDoc()
-│   ├── useDexie.ts           <-- Hook Dexie IndexedDB con useLiveQuery(), getAll(), add(), update(), deleteItem()
-│   ├── useNetwork.ts         <-- Hook sensor Capacitor Network (isOnline, connectionType, simulación)
-│   ├── useAuth.ts            <-- Hook de autenticacion con Firebase Auth
-│   └── useTasks.ts           <-- Hook de tareas adaptado sobre useRealTimeCollection
-├── context/
-│   ├── AuthContext.tsx       <-- Provider de Autenticacion
-│   └── TasksContext.tsx      <-- Provider de Tareas sobre Realtime Database
-├── components/
-│   ├── NetworkStatusBar.tsx  <-- Barra de estado de red con alerta tecnica y alternador de simulacion
-│   └── AppBottomNav.tsx      <-- Barra de pestañas inferior (Tabs nativos) para los 4 modulos
-├── pages/
-│   ├── Login.tsx             <-- Pantalla de autenticacion (/login)
-│   ├── Register.tsx          <-- Pantalla de registro (/register)
-│   ├── TasksList.tsx         <-- Tareas en tiempo real (/tasks) - Bloqueado offline
-│   ├── TaskForm.tsx          <-- Formulario de creacion y edicion (/tasks/new y /tasks/edit/:id)
-│   ├── TaskDetail.tsx        <-- Detalle de tarea (/tasks/:id)
-│   ├── ContactsList.tsx      <-- Directorio de Contactos con Firestore (/contacts) - Bloqueado offline
-│   ├── FruitsList.tsx        <-- Inventario de Frutas con Dexie (/fruits) - 100% Offline-First
-│   └── NetworkDiagnostics.tsx <-- Panel de diagnostico del sensor de red y matriz de persistencia (/network)
-├── types/
-│   ├── task.ts               <-- Modelo de Tarea
-│   └── contact.ts            <-- Modelo de Contacto
-├── App.tsx                   <-- Enrutador protegido con IonReactRouter y rutas de los 4 modulos
-├── main.tsx                  <-- Punto de entrada e inicializacion de Ionic
-├── App.css                   <-- Estilos tecnicos, sobrios y de alto contraste
-└── index.css                 <-- Tokens de diseno base
+challenger-07/
+├── android/                         <-- Proyecto nativo Android generado con Capacitor
+│   └── app/src/main/AndroidManifest.xml <-- Permisos de GPS, camara, vibracion, notificaciones
+├── challenger-07-debug.apk          <-- APK de depuracion compilado para pruebas fisicas
+├── src/
+│   ├── hooks/
+│   │   ├── useGeolocation.ts        <-- @capacitor/geolocation (GPS puntual y tracking en vivo)
+│   │   ├── useCamera.ts             <-- @capacitor/camera (Captura y galeria con URI web)
+│   │   ├── useAccelerometer.ts      <-- @capacitor/motion (Telemetria triaxial y detector Shake)
+│   │   ├── useDevice.ts             <-- @capacitor/device (Bateria, modelo, OS y UUID)
+│   │   ├── useHaptics.ts            <-- @capacitor/haptics (Impactos, notificaciones y vibracion)
+│   │   ├── useFilesystem.ts         <-- @capacitor/filesystem (Lectura, escritura y carpetas)
+│   │   ├── useLocalNotifications.ts <-- @capacitor/local-notifications (Inmediata y programada)
+│   │   ├── usePushNotifications.ts  <-- @capacitor/push-notifications (Token FCM y eventos)
+│   │   └── useNetwork.ts            <-- @capacitor/network (Sensor de conectividad)
+│   ├── pages/
+│   │   ├── Home.tsx                 <-- Panel de control principal (Grid de sensores)
+│   │   ├── GeolocationPage.tsx      <-- Prueba de geoposicionamiento y telemetria
+│   │   ├── CameraPage.tsx           <-- Visor y captura de camara/galeria
+│   │   ├── AccelerometerPage.tsx    <-- Telemetria X/Y/Z y alerta de Shake
+│   │   ├── DevicePage.tsx           <-- Ficha tecnica de hardware y bateria
+│   │   ├── HapticsPage.tsx          <-- Consola de retroalimentacion haptica
+│   │   ├── FilesystemPage.tsx       <-- Explorador y editor de archivos en Documents
+│   │   ├── LocalNotificationsPage.tsx <-- Programador y disparador de notificaciones
+│   │   ├── PushNotificationsPage.tsx  <-- Visualizador de Token FCM y mensajes
+│   │   └── NetworkPage.tsx          <-- Telemetria de interfaz de red activa
+│   ├── theme/
+│   │   └── variables.css            <-- Estetica tecnica de telemetria de hardware
+│   ├── App.tsx                      <-- Enrutador con IonReactRouter y rutas dedicadas
+│   └── main.tsx                     <-- Punto de entrada e inicializacion
+├── capacitor.config.ts              <-- Configuracion de Capacitor (appId: com.desarrollomovil.sensoreslab)
+├── package.json                     <-- Dependencias de Ionic, React y plugins nativos
+└── vite.config.ts                   <-- Configuracion de Vite bundler
 ```
 
 ---
 
-## 2. Los 4 Custom Hooks Obligatorios
+## 2. Sensores Implementados y Custom Hooks
 
-### A. `useCollection(table)` (Firebase Cloud Firestore -> Para Contactos)
-- **Ubicación:** `src/hooks/useCollection.ts`
-- **Estados:** `results`, `isPending`, `error`.
-- **Métodos:**
-  - `getAll(filters = [])`: Ejecuta consulta con `query(collection(db, table))` aplicando filtros dinamicos con `where(field, op, value)` y `getDocs`.
-  - `add(data)`: Inserta con `addDoc` agregando `createdAt: serverTimestamp()`.
-  - `update(id, data)`: Modifica con `updateDoc(doc(db, table, id), { ...data, updatedAt: serverTimestamp() })`.
-  - `remove(id)`: Elimina con `deleteDoc(doc(db, table, id))`.
-
-### B. `useRealTimeCollection(table)` (Firebase Realtime Database -> Para Tareas)
-- **Ubicación:** `src/hooks/useRealTimeCollection.ts`
-- **Estados:** `results`, `isPending`, `error`.
-- **Métodos y Reactividad:**
-  - `useEffect`: Se suscribe en tiempo real con `onValue(ref(rtdb, table), ...)`. Transforma el snapshot mediante `Object.entries(snapshot.val()).map(([id, value]) => ({ id, ...value }))` y ejecuta el cleanup desuscribiendose con `unsubscribe()`.
-  - `getAll()`: Lectura puntual usando `get(ref(rtdb, table))`.
-  - `add(data)`: Inserta con `push(ref(rtdb, table), { ...data, createdAt: new Date().toISOString() })`.
-  - `update(id, data)`: Actualiza con `set(ref(rtdb, `${table}/${id}`), { ...data, updatedAt: new Date().toISOString() })`.
-  - `deleteDoc(id)`: Remueve con `remove(ref(rtdb, `${table}/${id}`))`.
-
-### C. `useDexie(table, filterFn = null)` (Dexie IndexedDB -> Para Frutas)
-- **Ubicación:** `src/hooks/useDexie.ts` y `src/db/db.ts`
-- **Configuración:** Esquema en `MiAppDB` con la tabla `frutas: "++id, nombre, proveedor, fechaCosecha, createdAt"`.
-- **Reactividad:** `liveResults` implementado con `useLiveQuery` de `dexie-react-hooks` para escuchar mutaciones reactivas en IndexedDB.
-- **Métodos:**
-  - `getAll()`: Lectura manual a traves de `db[table].toArray()`.
-  - `add(data)`: Inserta en IndexedDB con `createdAt`.
-  - `update(id, data)`: Modifica por clave primaria.
-  - `deleteItem(id)`: Elimina por clave primaria con `delete(id)`.
-
-### D. `useNetwork()` (`@capacitor/network` -> Sensor de Conectividad)
-- **Ubicación:** `src/hooks/useNetwork.ts`
-- **Estados:** `isOnline` (boolean) y `connectionType` (`wifi | cellular | none | unknown`).
-- **Ciclo de Vida:** Inicializa consultando `Network.getStatus()` y se suscribe a eventos con `Network.addListener("networkStatusChange", ...)`, eliminando el listener en el cleanup de `useEffect`.
-- **Modo Simulador:** Incluye funcion para alternar modo offline de prueba sin necesidad de desconectar la interfaz fisica.
+| Sensor / Plugin | Custom Hook | Funcionalidad Clave |
+| :--- | :--- | :--- |
+| **@capacitor/geolocation** | `useGeolocation` | `getCurrentLocation()`, `startTracking()` de alta precision y `stopTracking()` con `clearWatch`. |
+| **@capacitor/camera** | `useCamera` | `takePhoto()` con `CameraResultType.Uri` y selector de fuente (camara o galeria). |
+| **@capacitor/motion** | `useAccelerometer` | Telemetria triaxial (X, Y, Z), magnitud euclidea y detector de agitacion `isShaking` (`threshold: 22`). |
+| **@capacitor/device** | `useDevice` | Nivel y estado de carga de bateria (`batteryLevel * 100`), info de OS y UUID del dispositivo. |
+| **@capacitor/haptics** | `useHaptics` | `impact()` (`light`, `medium`, `heavy`), `notify()` (`success`, `warning`, `error`), `vibrate(200ms)` y pulsos de seleccion. |
+| **@capacitor/filesystem** | `useFilesystem` | `writeFile`, `readFile`, `deleteFile`, `listFiles`, `createDir` y `deleteDir` en `Directory.Documents`. |
+| **@capacitor/local-notifications** | `useLocalNotifications` | Permisos nativos, envio inmediato y programacion temporal en segundos (`schedule`). |
+| **@capacitor/push-notifications** | `usePushNotifications` | Registro FCM, copia de registration token y recepcion de notificaciones. |
+| **@capacitor/network** | `useNetwork` | Deteccion de estado online/offline y tipo de interfaz (Wi-Fi, Celular). |
 
 ---
 
-## 3. Matriz de Comportamiento Offline y Bloqueo de Acciones
+## 3. Permisos Configurados en `AndroidManifest.xml`
 
-| Módulo | Motor de Persistencia | Hook | Comportamiento cuando `isOnline === false` |
-| :--- | :--- | :--- | :--- |
-| **Contactos** | Cloud Firestore | `useCollection("contacts")` | **BLOQUEADO (`disabled={!isOnline}`):** Los botones de registrar, editar y eliminar, asi como los inputs del formulario, se deshabilitan. Se despliega alerta de sincronizacion pausada. |
-| **Tareas** | Realtime Database | `useRealTimeCollection("tasks")` | **BLOQUEADO (`disabled={!isOnline}`):** Boton flotante (+), checkboxes de cambio de estado, edicion y eliminacion se deshabilitan. Lectura permitida. |
-| **Frutas** | Dexie IndexedDB | `useDexie("frutas")` | **100% OPERATIVO (Offline-First):** Ninguna accion de creacion, modificacion o eliminacion se bloquea. Persiste localmente en el navegador o dispositivo. |
-| **Diagnóstico** | Capacitor Network | `useNetwork()` | Muestra en tiempo real el tipo de red activa (Wi-Fi, Celular, Ninguna) y permite simular desconexion. |
+```xml
+<!-- Geolocation -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+<!-- Camera & Storage -->
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+<!-- Haptics -->
+<uses-permission android:name="android.permission.VIBRATE" />
+
+<!-- Notifications -->
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+```
 
 ---
 
-## 4. Guía de Ejecución y Validación
+## 4. Instrucciones de Compilacion y Ejecucion
 
 ```bash
+# Entrar a la carpeta del reto
+cd challenger-07
+
 # 1. Instalar dependencias
 npm install
 
-# 2. Iniciar servidor de desarrollo Vite
+# 2. Servidor web de desarrollo
 npm run dev
 
-# 3. Compilar el proyecto para validar tipos y empaquetado
+# 3. Compilar bundle web
 npm run build
 
-# 4. Verificación estricta de TypeScript
-npx tsc --noEmit
+# 4. Sincronizar con plataforma Android
+npx cap sync android
+
+# 5. Compilar APK de depuracion
+cd android
+./gradlew assembleDebug
+
+# El APK queda ubicado en:
+# challenger-07/android/app/build/outputs/apk/debug/app-debug.apk
+# challenger-07/challenger-07-debug.apk
 ```
-
----
-
-## 5. Pruebas Rápidas de los Requerimientos
-
-1. **Navegación:** Inicia sesion (puedes usar `demo@test.com` con clave `123456`). Usa las pestañas inferiores para alternar entre **Tareas**, **Contactos**, **Frutas** y **Red**.
-2. **Probar el Bloqueo de Red:**
-   - Ve a la pestaña **Red** o usa el boton **Simular Offline** en la barra superior.
-   - Entra a **Tareas**: Observa que el boton (+), los checkboxes de tareas y las opciones de editar y eliminar estan bloqueados (`disabled`).
-   - Entra a **Contactos**: Observa que el boton (+) y las opciones de edicion y borrado estan bloqueados (`disabled`).
-   - Entra a **Frutas**: Observa que puedes crear, editar y eliminar frutas sin ninguna restriccion gracias a Dexie IndexedDB.
-   - Haz clic en **Restablecer Conexion**: Tareas y Contactos vuelven a habilitarse inmediatamente.
