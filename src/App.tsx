@@ -18,6 +18,9 @@ import Register from './pages/Register';
 import TasksList from './pages/TasksList';
 import TaskForm from './pages/TaskForm';
 import TaskDetail from './pages/TaskDetail';
+import ContactsList from './pages/ContactsList';
+import FruitsList from './pages/FruitsList';
+import NetworkDiagnostics from './pages/NetworkDiagnostics';
 
 /* Estilos de la aplicación */
 import './App.css';
@@ -117,6 +120,36 @@ const AppRoutes: React.FC = () => {
           element={
             <ProtectedRouteWrapper>
               <TaskDetail />
+            </ProtectedRouteWrapper>
+          }
+        />
+
+        {/* Módulo de Contactos (Firebase Cloud Firestore) */}
+        <Route
+          path="/contacts"
+          element={
+            <ProtectedRouteWrapper>
+              <ContactsList />
+            </ProtectedRouteWrapper>
+          }
+        />
+
+        {/* Módulo de Frutas (Dexie IndexedDB - Offline-First) */}
+        <Route
+          path="/fruits"
+          element={
+            <ProtectedRouteWrapper>
+              <FruitsList />
+            </ProtectedRouteWrapper>
+          }
+        />
+
+        {/* Sensor de Red & Diagnóstico (@capacitor/network) */}
+        <Route
+          path="/network"
+          element={
+            <ProtectedRouteWrapper>
+              <NetworkDiagnostics />
             </ProtectedRouteWrapper>
           }
         />

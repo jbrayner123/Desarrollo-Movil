@@ -6,10 +6,12 @@ import { Task } from '../types/task';
 
 export interface TasksContextType {
   tasks: Task[];
-  addTask: (data: Omit<Task, 'id' | 'createdAt' | 'userId'>) => Task;
-  updateTask: (id: string, updatedFields: Partial<Omit<Task, 'id' | 'createdAt' | 'userId'>>) => void;
-  deleteTask: (id: string) => void;
-  toggleTaskStatus: (id: string) => void;
+  isPending?: boolean;
+  error?: string | null;
+  addTask: (data: Omit<Task, 'id' | 'createdAt' | 'userId'>) => Promise<Task> | Task;
+  updateTask: (id: string, updatedFields: Partial<Omit<Task, 'id' | 'createdAt' | 'userId'>>) => Promise<void> | void;
+  deleteTask: (id: string) => Promise<void> | void;
+  toggleTaskStatus: (id: string) => Promise<void> | void;
   getTaskById: (id: string) => Task | undefined;
 }
 

@@ -26,6 +26,8 @@ import {
 import { saveOutline, closeCircleOutline } from 'ionicons/icons';
 import { useParams } from 'react-router-dom';
 import { useTasksContext } from '../context/TasksContext';
+import { useNetwork } from '../hooks/useNetwork';
+import { NetworkStatusBar } from '../components/NetworkStatusBar';
 
 type RouteParams = {
   [key: string]: string | undefined;
@@ -34,11 +36,13 @@ type RouteParams = {
 
 /**
  * Formulario unificado para Creación (/tasks/new) y Edición (/tasks/edit/:id) de Tareas
+ * Bloqueado cuando no hay conexión a internet (isOnline === false)
  */
 const TaskForm: React.FC = () => {
   const router = useIonRouter();
   const { id } = useParams<RouteParams>();
   const isEditing = Boolean(id);
+  const { isOnline } = useNetwork();
 
   const { addTask, updateTask, getTaskById } = useTasksContext();
 
@@ -65,6 +69,11 @@ const TaskForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isOnline) {
+      setErrorMessage('Se requiere conexión a internet para sincronizar con Firebase.');
+      return;
+    }
 
     if (!title.trim()) {
       setErrorMessage('El título de la tarea es obligatorio.');
@@ -105,6 +114,9 @@ const TaskForm: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding">
         <div className="container-responsive">
+          {/* Indicador de red y bloqueo de Firebase */}
+          <NetworkStatusBar moduleName="Tareas" isFirebaseModule={true} />
+
           <IonCard>
             <IonCardHeader>
               <IonCardTitle>
@@ -121,6 +133,7 @@ const TaskForm: React.FC = () => {
                     labelPlacement="floating"
                     placeholder="Ej. Revisar presentación de Firebase"
                     value={title}
+                    disabled={!isOnline}
                     onIonInput={(e) => {
                       setTitle(e.detail.value || '');
                       if (errorMessage) setErrorMessage(null);
@@ -135,6 +148,7 @@ const TaskForm: React.FC = () => {
                     label="Categoría"
                     labelPlacement="floating"
                     value={category}
+                    disabled={!isOnline}
                     onIonChange={(e) => setCategory(e.detail.value)}
                   >
                     <IonSelectOption value="Estudio">Estudio / Universidad</IonSelectOption>
@@ -152,6 +166,7 @@ const TaskForm: React.FC = () => {
                     labelPlacement="floating"
                     type="date"
                     value={date}
+                    disabled={!isOnline}
                     onIonInput={(e) => setDate(e.detail.value || '')}
                   />
                 </IonItem>
@@ -164,6 +179,7 @@ const TaskForm: React.FC = () => {
                     placeholder="Escribe notas, especificaciones o detalles de la tarea..."
                     rows={4}
                     value={description}
+                    disabled={!isOnline}
                     onIonInput={(e) => setDescription(e.detail.value || '')}
                   />
                 </IonItem>
@@ -179,6 +195,7 @@ const TaskForm: React.FC = () => {
                   expand="block"
                   type="submit"
                   className="btn-add-task"
+                  disabled={!isOnline}
                 >
                   <IonIcon slot="start" icon={saveOutline} />
                   {isEditing ? 'Guardar Cambios' : 'Crear Tarea'}

@@ -29,6 +29,8 @@ import {
 } from 'ionicons/icons';
 import { useParams } from 'react-router-dom';
 import { useTasksContext } from '../context/TasksContext';
+import { useNetwork } from '../hooks/useNetwork';
+import { NetworkStatusBar } from '../components/NetworkStatusBar';
 
 type RouteParams = {
   [key: string]: string | undefined;
@@ -43,6 +45,7 @@ const TaskDetail: React.FC = () => {
   const { id } = useParams<RouteParams>();
   const router = useIonRouter();
   const { getTaskById, toggleTaskStatus, deleteTask } = useTasksContext();
+  const { isOnline } = useNetwork();
 
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
@@ -99,6 +102,9 @@ const TaskDetail: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding">
         <div className="container-responsive">
+          {/* Indicador de red y bloqueo de Firebase */}
+          <NetworkStatusBar moduleName="Tareas" isFirebaseModule={true} />
+
           <IonCard>
             <IonCardHeader>
               <div className="detail-meta-row">
@@ -140,6 +146,7 @@ const TaskDetail: React.FC = () => {
               <IonButton
                 expand="block"
                 color={task.completed ? 'medium' : 'success'}
+                disabled={!isOnline}
                 onClick={handleToggle}
                 className="btn-modern"
               >
@@ -155,6 +162,7 @@ const TaskDetail: React.FC = () => {
                 expand="block"
                 fill="outline"
                 color="primary"
+                disabled={!isOnline}
                 style={{ marginTop: '10px' }}
                 onClick={() => router.push(`/tasks/edit/${task.id}`, 'forward', 'push')}
               >
@@ -167,6 +175,7 @@ const TaskDetail: React.FC = () => {
                 expand="block"
                 fill="clear"
                 color="danger"
+                disabled={!isOnline}
                 style={{ marginTop: '10px' }}
                 onClick={() => setShowDeleteAlert(true)}
               >

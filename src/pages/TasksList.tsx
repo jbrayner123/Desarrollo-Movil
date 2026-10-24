@@ -33,15 +33,20 @@ import {
 } from 'ionicons/icons';
 import { useAuthContext } from '../context/AuthContext';
 import { useTasksContext } from '../context/TasksContext';
+import { useNetwork } from '../hooks/useNetwork';
+import { NetworkStatusBar } from '../components/NetworkStatusBar';
+import { AppBottomNav } from '../components/AppBottomNav';
 
 /**
  * Pantalla principal del Dashboard: Lista de Tareas
- * Mantiene la estetica visual del Reto 3 con FAB y opciones CRUD completas
+ * Sincronizacion en tiempo real con Firebase Realtime Database
+ * Bloqueo de acciones cuando isOnline es false
  */
 const TasksList: React.FC = () => {
   const router = useIonRouter();
   const { user, logout } = useAuthContext();
   const { tasks, toggleTaskStatus, deleteTask } = useTasksContext();
+  const { isOnline } = useNetwork();
 
   // Estados para alertas de confirmacion
   const [showLogoutAlert, setShowLogoutAlert] = useState(false);
@@ -56,7 +61,7 @@ const TasksList: React.FC = () => {
   };
 
   const handleConfirmDelete = () => {
-    if (taskToDelete) {
+    if (taskToDelete && isOnline) {
       deleteTask(taskToDelete);
       setTaskToDelete(null);
     }
@@ -82,6 +87,9 @@ const TasksList: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding">
         <div className="container-responsive">
+          {/* Indicador de estado de red nativo de Capacitor */}
+          <NetworkStatusBar moduleName="Tareas (Realtime Database)" isFirebaseModule={true} />
+
           {/* Tarjeta con informacion del usuario autenticado */}
           <IonCard>
             <IonCardHeader>
@@ -108,8 +116,11 @@ const TasksList: React.FC = () => {
 
           {/* Listado de tareas con estetica del Reto 3 */}
           <IonCard>
-            <IonCardHeader style={{ paddingBottom: '8px' }}>
-              <IonCardTitle style={{ fontSize: '1.1rem' }}>Listado de Actividades</IonCardTitle>
+            <IonCardHeader style={{ paddingBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <IonCardTitle style={{ fontSize: '1.1rem' }}>Listado de Actividades (RTDB)</IonCardTitle>
+              <IonBadge color="tertiary" style={{ fontSize: '0.70rem' }}>
+                Firebase Realtime
+              </IonBadge>
             </IonCardHeader>
 
             <IonList lines="none" style={{ padding: '0 8px 12px 8px' }}>
@@ -124,11 +135,14 @@ const TasksList: React.FC = () => {
               ) : (
                 tasks.map((task) => (
                   <IonItem key={task.id} lines="full" className="task-item-modern">
-                    {/* Checkbox nativo para alternar completado */}
+                    {/* Checkbox nativo para alternar completado - bloqueado sin conexion */}
                     <IonCheckbox
                       slot="start"
                       checked={task.completed}
-                      onIonChange={() => toggleTaskStatus(task.id)}
+                      disabled={!isOnline}
+                      onIonChange={() => {
+                        if (isOnline) toggleTaskStatus(task.id);
+                      }}
                       aria-label={`Marcar como completada ${task.title}`}
                     />
 
@@ -158,7 +172,7 @@ const TasksList: React.FC = () => {
                       </div>
                     </IonLabel>
 
-                    {/* Boton para ver detalle */}
+                    {/* Boton para ver detalle (navegacion permitida offline) */}
                     <IonButton
                       slot="end"
                       fill="clear"
@@ -170,25 +184,27 @@ const TasksList: React.FC = () => {
                       <IonIcon slot="icon-only" icon={eyeOutline} />
                     </IonButton>
 
-                    {/* Boton para editar */}
+                    {/* Boton para editar - deshabilitado sin conexion */}
                     <IonButton
                       slot="end"
                       fill="clear"
                       className="btn-edit-task"
+                      disabled={!isOnline}
                       onClick={() => router.push(`/tasks/edit/${task.id}`, 'forward', 'push')}
-                      title="Editar tarea"
+                      title={!isOnline ? "Conexion requerida para editar" : "Editar tarea"}
                       aria-label="Editar tarea"
                     >
                       <IonIcon slot="icon-only" icon={createOutline} />
                     </IonButton>
 
-                    {/* Boton para eliminar */}
+                    {/* Boton para eliminar - deshabilitado sin conexion */}
                     <IonButton
                       slot="end"
                       fill="clear"
                       className="btn-delete-task"
+                      disabled={!isOnline}
                       onClick={() => setTaskToDelete(task.id)}
-                      title="Eliminar tarea"
+                      title={!isOnline ? "Conexion requerida para eliminar" : "Eliminar tarea"}
                       aria-label="Eliminar tarea"
                     >
                       <IonIcon slot="icon-only" icon={trashOutline} />
@@ -200,12 +216,17 @@ const TasksList: React.FC = () => {
           </IonCard>
         </div>
 
-        {/* Boton de Accion Flotante (FAB) para crear tarea */}
+        {/* Boton de Accion Flotante (FAB) para crear tarea - deshabilitado sin conexion */}
         <IonFab vertical="bottom" horizontal="end" slot="fixed" style={{ margin: '0 8px 12px 0' }}>
           <IonFabButton
             color="primary"
-            onClick={() => router.push('/tasks/new', 'forward', 'push')}
-            title="Crear Nueva Tarea"
+            disabled={!isOnline}
+            onClick={() => {
+              if (isOnline) {
+                router.push('/tasks/new', 'forward', 'push');
+              }
+            }}
+            title={!isOnline ? "Conexion requerida para agregar tareas" : "Crear Nueva Tarea"}
             aria-label="Crear Nueva Tarea"
           >
             <IonIcon icon={addOutline} />
@@ -250,6 +271,9 @@ const TasksList: React.FC = () => {
           ]}
         />
       </IonContent>
+
+      {/* Navegación inferior persistente */}
+      <AppBottomNav />
     </IonPage>
   );
 };
