@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Misiones Parcial 2</string>
+    <string name="title_activity_main">Misiones Parcial 2</string>
+    <string name="package_name">com.desarrollomovil.parcial2</string>
+    <string name="custom_url_scheme">com.desarrollomovil.parcial2</string>
+</resources>

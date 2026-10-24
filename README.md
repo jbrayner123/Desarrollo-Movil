@@ -19,6 +19,7 @@ Cada proyecto se encuentra alojado en una **rama independiente** con sus depende
 | [`challenger-06`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-06) | **Reto 6: Persistencia Multi-Motor y Sensor de Red** | Ionic React + TypeScript + Firestore + RTDB + Dexie + Capacitor | Persistencia en tres capas: Contactos en Cloud Firestore (`useCollection`), Tareas en Realtime Database (`useRealTimeCollection`), Frutas en Dexie IndexedDB (`useDexie`) offline-first y sensor `@capacitor/network` con bloqueo de escritura cuando `isOnline === false`. |
 | [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-07) | **Reto 7: Laboratorio de Sensores Nativos** | Ionic React + TypeScript + Capacitor + APK Android | Panel de control de hardware (`Home.tsx`) y 9 pantallas dedicadas con Custom Hooks para Geolocation (GPS y tracking en vivo), Cámara (captura y galería), Acelerómetro (ejes X/Y/Z y detector Shake), Dispositivo (batería y UUID), Hápticos (impactos y vibración), Filesystem (lectura/escritura en Documents), Notificaciones Locales (programables), Push Notifications (FCM) y Red, con APK compilado `challenger-07-debug.apk`. |
 | [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-08) | **Reto 8: Supabase Auth, PostgreSQL RLS, Realtime y Storage** | Ionic React + TypeScript + Capacitor + Supabase + APK Android | Autenticación con Supabase Auth, CRUD de tareas con Row Level Security (RLS), sincronización reactiva en vivo con Supabase Realtime (`postgres_changes`), captura de fotos con la cámara nativa (`@capacitor/camera`) y subida de avatar a Supabase Storage con políticas por usuario, con APK compilado `challenger-08-debug.apk`. |
+| [`parcial-02-jose-brayner-minotta-ruiz`](https://github.com/jbrayner123/Desarrollo-Movil/tree/parcial-02-jose-brayner-minotta-ruiz) | **Parcial 2: Misiones Reales, Sensores, Puntos y Ranking** | Ionic React + TypeScript + Capacitor + Firebase + APK Android | Sistema de misiones tácticas con Cámara, Geolocation Haversine (30m/50m), Acelerómetro (10s quietud), Notificaciones Locales, persistencia dual (Firebase + LocalStorage), Top 5 Ranking y diseño editorial Meetgen, con APK compilado `parcial-02-debug.apk`. |
 
 ---
 
@@ -56,6 +57,7 @@ npm run dev
 | **Reto 3** | `TaskManager.apk` | En la rama [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-03/TaskManager.apk) |
 | **Reto 7** | `challenger-07-debug.apk` | En la rama [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-07/challenger-07-debug.apk) |
 | **Reto 8** | `challenger-08-debug.apk` | En la rama [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-08/challenger-08-debug.apk) |
+| **Parcial 2** | `parcial-02-debug.apk` | En la rama [`parcial-02-jose-brayner-minotta-ruiz`](https://github.com/jbrayner123/Desarrollo-Movil/blob/parcial-02-jose-brayner-minotta-ruiz/parcial-02/parcial-02-debug.apk) |
 
 ---
 

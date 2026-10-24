@@ -21,6 +21,9 @@ android/app/*.jks
 *.apk
 *.aab
 !**/TaskManager.apk
+!**/challenger-07-debug.apk
+!**/challenger-08-debug.apk
+!**/parcial-02-debug.apk
 
 # Variables de entorno y logs
 *.local
