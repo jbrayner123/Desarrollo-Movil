@@ -1,0 +1,224 @@
+/*
+ * Tema Challenge 09: diseno plano y sobrio.
+ * Sin gradientes, sin sombras marcadas, bordes sutiles y un primario azul marino solido.
+ */
+:root {
+  --color-fondo: #f4f5f7;
+  --color-superficie: #ffffff;
+  --color-borde: #e1e4e8;
+  --color-texto: #1c1f24;
+  --color-texto-suave: #5f6670;
+
+  --ion-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ion-background-color: var(--color-fondo);
+  --ion-text-color: var(--color-texto);
+  --ion-toolbar-background: var(--color-superficie);
+  --ion-toolbar-color: var(--color-texto);
+  --ion-border-color: var(--color-borde);
+
+  --ion-color-primary: #1f2a44;
+  --ion-color-primary-rgb: 31, 42, 68;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1b253c;
+  --ion-color-primary-tint: #354057;
+
+  --ion-color-dark: #1c1f24;
+  --ion-color-medium: #6b7280;
+  --ion-color-success: #2f6f4f;
+  --ion-color-warning: #a16207;
+  --ion-color-danger: #a33a3a;
+  --ion-color-danger-rgb: 163, 58, 58;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-shade: #8f3333;
+  --ion-color-danger-tint: #ac4e4e;
+}
+
+ion-toolbar {
+  border-bottom: 1px solid var(--color-borde);
+}
+
+ion-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+ion-button {
+  --box-shadow: none;
+  --border-radius: 6px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+ion-badge {
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* ---- Estructura ---------------------------------------------------------- */
+.contenedor-mapa {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.marco-mapa {
+  height: 50vh;
+  min-height: 280px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-superficie);
+}
+
+.mapa {
+  height: 100%;
+  width: 100%;
+}
+
+/* ---- Tarjetas ------------------------------------------------------------ */
+.tarjeta {
+  margin: 0;
+  box-shadow: none;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background: var(--color-superficie);
+}
+
+.tarjeta ion-card-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  color: var(--color-texto-suave);
+}
+
+.titulo-sesion {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.fila-estado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.fila-estado:last-child {
+  border-bottom: none;
+}
+
+.fila-etiqueta {
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+/* ---- Avisos sobrios -------------------------------------------------------- */
+.aviso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+  border-left-width: 4px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.aviso-neutro {
+  background: var(--color-superficie);
+  border-left-color: var(--ion-color-medium);
+}
+
+.aviso-advertencia {
+  background: #fdf8ec;
+  border-color: #ecdcb0;
+  border-left-color: var(--ion-color-warning);
+}
+
+/* ---- Acciones ------------------------------------------------------------ */
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.acciones-secundarias {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.contador {
+  margin-left: 8px;
+}
+
+/* ---- Direcciones e historial --------------------------------------------- */
+.direccion-etiqueta {
+  margin: 10px 0 2px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-texto-suave);
+}
+
+.direccion-texto {
+  margin: 0;
+  color: var(--color-texto);
+  font-size: 0.95rem;
+}
+
+.texto-ayuda {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+}
+
+.texto-vacio {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.encabezado-historial {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.contenido .tarjeta + .tarjeta {
+  margin-top: 12px;
+}
+
+.insignias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.acciones-sesion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.bloque-json {
+  margin-top: 10px;
+  padding: 10px;
+  max-height: 240px;
+  overflow: auto;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

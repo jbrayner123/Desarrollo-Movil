@@ -42,3 +42,8 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Challenge 09: la clave de OpenCage no se versiona
+.env
+!.env.example
+!**/challenger-09-debug.apk
