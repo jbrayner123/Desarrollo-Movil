@@ -1,0 +1,200 @@
+@use '../../theme/tokens' as *;
+
+.page {
+  padding: 0 $space-5 $space-8;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin: $space-1 0 $space-5;
+  font-size: 0.92rem;
+  color: $muted;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+  margin-bottom: $space-6;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: $space-4;
+  border-radius: $radius-md;
+
+  ion-icon {
+    font-size: 22px;
+    margin-bottom: $space-2;
+  }
+
+  strong {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $ink-soft;
+  }
+}
+
+.mint {
+  background: $mint;
+}
+
+.lavender {
+  background: $lavender;
+}
+
+.pink {
+  background: $pink;
+}
+
+.butter {
+  background: $butter;
+}
+
+.row {
+  @include card;
+  padding: $space-4;
+  margin-bottom: $space-3;
+}
+
+.rowHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-2;
+
+  time {
+    font-size: 0.74rem;
+    color: $muted;
+  }
+}
+
+.reason {
+  padding: 4px $space-3;
+  border-radius: $radius-pill;
+  background: $pink;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.excerpt {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.by {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: $muted;
+}
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-2;
+  margin-top: $space-4;
+}
+
+%small-button {
+  @include reset-button;
+  @include pressable(0.96);
+  height: 40px;
+  padding: 0 $space-4;
+  border-radius: $radius-pill;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.ghost {
+  @extend %small-button;
+  background: $bg;
+  border: 1px solid $border-strong;
+}
+
+.dangerButton {
+  @extend %small-button;
+  background: $danger;
+  color: #ffffff;
+}
+
+.darkButton {
+  @extend %small-button;
+  background: $ink;
+  color: #ffffff;
+}
+
+.vetRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.vetInfo {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    font-size: 0.94rem;
+  }
+
+  span {
+    font-size: 0.78rem;
+    color: $muted;
+  }
+}
+
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 6px $space-3;
+  border-radius: $radius-pill;
+  background: $mint;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  padding: $space-8 0;
+}
+
+button.verified {
+  @include reset-button;
+  @include pressable(0.96);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px $space-3;
+  border-radius: $radius-pill;
+  background: $mint;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.darkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vetInfo span + span {
+  margin-top: 2px;
+}

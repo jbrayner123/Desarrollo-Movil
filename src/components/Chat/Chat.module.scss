@@ -1,0 +1,138 @@
+@use '../../theme/tokens' as *;
+
+// ---- Fila de conversacion ------------------------------------------------------
+.item {
+  @include reset-button;
+  @include pressable(0.98);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4;
+  margin-bottom: $space-3;
+  text-align: left;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+}
+
+.itemBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.itemPreview {
+  font-size: 0.84rem;
+  color: $muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemUnread {
+  color: $ink;
+  font-weight: 600;
+}
+
+.itemMeta {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-2;
+  padding: 2px 0;
+
+  time {
+    font-size: 0.74rem;
+    color: $muted;
+  }
+}
+
+.unread {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: $radius-pill;
+  background: $blue;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+}
+
+// ---- Burbujas -------------------------------------------------------------------
+.bubbleRow {
+  display: flex;
+  margin-bottom: $space-2;
+  animation: bubble-in 260ms $ease both;
+}
+
+.mine {
+  justify-content: flex-end;
+}
+
+.theirs {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 78%;
+  padding: 10px 14px 8px;
+  border-radius: 20px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+
+  time {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.68rem;
+    text-align: right;
+    opacity: 0.6;
+  }
+}
+
+.mine .bubble {
+  background: $ink;
+  color: #ffffff;
+  border-bottom-right-radius: 6px;
+}
+
+.theirs .bubble {
+  background: $surface;
+  color: $ink;
+  border: 1px solid $border;
+  border-bottom-left-radius: 6px;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.itemRole {
+  margin-left: $space-2;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  background: $lavender;
+  font-size: 0.66rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.pending {
+  opacity: 0.7;
+}

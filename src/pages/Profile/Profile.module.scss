@@ -1,0 +1,244 @@
+@use '../../theme/tokens' as *;
+
+.roundIcon {
+  @include reset-button;
+  @include pressable(0.9);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: $ink;
+}
+
+.panel {
+  animation: panel-in 280ms $ease both;
+}
+
+.intro {
+  margin: -$space-1 0 $space-5;
+  font-size: 0.9rem;
+  color: $muted;
+}
+
+// ---- Tarjeta menta de comunidad ------------------------------------------------
+.community {
+  margin-top: $space-6;
+  padding: $space-6 $space-5;
+  border-radius: $radius-lg;
+  background: $mint;
+
+  h2 {
+    margin-top: $space-4;
+    font-size: 1.12rem;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 6px 0 $space-5;
+    font-size: 0.88rem;
+    color: $ink-soft;
+  }
+}
+
+.communityIcon {
+  font-size: 30px;
+}
+
+.darkPill {
+  @include reset-button;
+  @include pressable(0.97);
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  height: 48px;
+  padding: 0 $space-5;
+  border-radius: $radius-pill;
+  background: $ink;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+// ---- Perfil del usuario ----------------------------------------------------------
+.owner {
+  @include card;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4 $space-5;
+  margin-bottom: $space-4;
+
+  h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 0.82rem;
+    color: $muted;
+  }
+}
+
+.menu {
+  @include card;
+  list-style: none;
+  margin: 0;
+  padding: $space-1 0;
+
+  li + li {
+    border-top: 1px solid $border;
+  }
+
+  button {
+    @include reset-button;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-4 $space-5;
+    font-size: 0.94rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color $fast $ease;
+
+    &:active {
+      background: $bg;
+    }
+
+    ion-icon {
+      font-size: 21px;
+    }
+  }
+}
+
+.chevron {
+  margin-left: auto;
+  color: $subtle;
+  font-size: 18px !important;
+}
+
+.danger {
+  color: $danger !important;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ---- Edicion de perfil ----------------------------------------------------------
+.editSheet {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-6 $space-5 $space-8;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  input,
+  textarea {
+    padding: $space-3 $space-4;
+    border: 1px solid $border-strong;
+    border-radius: $radius-md;
+    background: $surface;
+    font: inherit;
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: $ink;
+    outline: none;
+    resize: none;
+
+    &:focus {
+      border-color: $ink;
+    }
+  }
+}
+
+.editRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+}
+
+.toggleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+
+  ion-toggle {
+    --track-background-checked: #{$ink};
+  }
+}
+
+.saveButton {
+  @include reset-button;
+  @include pressable(0.98);
+  height: 54px;
+  border-radius: $radius-pill;
+  display: grid;
+  place-items: center;
+  background: $ink;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  ion-spinner {
+    color: #ffffff;
+  }
+}
+
+.editRow > * {
+  min-width: 0;
+}
+
+.editRow input {
+  width: 100%;
+  min-width: 0;
+}
+
+// Boton "Salir" siempre visible en el encabezado del perfil.
+.logoutPill {
+  @include reset-button;
+  @include pressable(0.95);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 $space-4;
+  border-radius: $radius-pill;
+  background: $surface;
+  border: 1px solid $border-strong;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: $danger;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}

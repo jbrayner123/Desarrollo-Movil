@@ -1,0 +1,123 @@
+@use '../../theme/tokens' as *;
+
+.peer {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  max-width: 100%;
+  text-align: left;
+}
+
+.peerText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  small {
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: $muted;
+  }
+}
+
+.thread {
+  padding: $space-2 $space-4 $space-4;
+}
+
+.dayLabel {
+  margin: $space-2 auto $space-4;
+  width: fit-content;
+  padding: 4px $space-3;
+  border-radius: $radius-pill;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: $muted;
+}
+
+.composer {
+  display: flex;
+  gap: $space-2;
+  padding: $space-3 $space-4 calc(#{$space-3} + env(safe-area-inset-bottom));
+  background: $bg;
+  border-top: 1px solid $border;
+
+  input {
+    flex: 1;
+    height: 50px;
+    padding: 0 $space-5;
+    border: 1px solid $border-strong;
+    border-radius: $radius-pill;
+    background: $surface;
+    font: inherit;
+    font-size: 0.94rem;
+    color: $ink;
+    outline: none;
+    transition: border-color $fast $ease;
+
+    &:focus {
+      border-color: $ink;
+    }
+  }
+
+  button {
+    @include reset-button;
+    @include pressable(0.9);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: $yellow;
+    color: $ink;
+    font-size: 20px;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  padding: $space-8 0;
+}
+
+.error {
+  padding: $space-2 $space-4 0;
+  background: $bg;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b4262b;
+}
+
+// Boton para compartir la ubicacion, a la izquierda del campo de texto.
+.composer button.shareButton {
+  background: $surface;
+  border: 1px solid $border-strong;
+  color: $ink;
+  font-size: 21px;
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  ion-spinner {
+    width: 20px;
+  }
+}
+
+.composer input {
+  min-width: 0;
+}
