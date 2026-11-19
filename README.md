@@ -17,7 +17,7 @@ Manada es un proyecto de **José Brayner Minotta Ruiz** y **Gabriela Chávez**, 
 | **José Brayner Minotta Ruiz** | [@jbrayner123](https://github.com/jbrayner123) |
 | **Gabriela Chávez** | [@Chavezgaby08](https://github.com/Chavezgaby08) |
 
-- **Prototipo de diseño (Lovable):** _pendiente de agregar el enlace_
+- **Prototipo de diseño:** [ver el prototipo en Lovable](https://lovable.dev/preview/dHw1Cri5Sg5MDZilffmWwVOv42qVmFNA). Es la maqueta visual de la que partimos: definimos ahí la identidad, las pantallas y la navegación, y luego las llevamos a esta aplicación real.
 - **Rama del proyecto:** `proyecto-final`
 - **Ramas mezcladas en `main`:** `proyecto-final`
 
@@ -69,7 +69,7 @@ Al registrarse, cada persona elige cómo usará la app. El rol define qué puede
 
 ### Diseño
 
-Diseño plano basado en el prototipo de Lovable: fondo neutro `#F7F8FA`, tarjetas blancas con bordes suaves, amarillo y azul sólidos, sin gradientes ni emojis y con iconos de [Ionicons](https://ionic.io/ionicons). Incluye transiciones nativas entre pantallas, microinteracciones al presionar, animaciones de entrada escalonadas, esqueletos de carga y un encabezado que se oculta al desplazarse hacia abajo.
+La interfaz parte del [prototipo hecho en Lovable](https://lovable.dev/preview/dHw1Cri5Sg5MDZilffmWwVOv42qVmFNA), que sirvió como maqueta de las pantallas principales (feed, veterinarias, mensajes y perfil) y de la barra de navegación. A partir de él se construyó la app real, manteniendo su identidad visual: diseño plano con fondo neutro `#F7F8FA`, tarjetas blancas con bordes suaves, amarillo y azul sólidos, sin gradientes ni emojis y con iconos de [Ionicons](https://ionic.io/ionicons). Incluye transiciones nativas entre pantallas, microinteracciones al presionar, animaciones de entrada escalonadas, esqueletos de carga y un encabezado que se oculta al desplazarse hacia abajo.
 
 ---
 
