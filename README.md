@@ -1,6 +1,6 @@
 # Desarrollo de Aplicaciones Web y Móviles
 
-Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **8 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React**, **Capacitor**, **Firebase** (Auth, Cloud Firestore, Realtime Database), **Dexie.js (IndexedDB)**, **Sensores Nativos de Hardware** y **Supabase** (Auth, PostgreSQL RLS, Realtime y Storage).
+Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **9 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React**, **Capacitor**, **Firebase** (Auth, Cloud Firestore, Realtime Database), **Dexie.js (IndexedDB)**, **Sensores Nativos de Hardware** **Supabase** (Auth, PostgreSQL RLS, Realtime y Storage) y **Mapas con Leaflet** integrados con sensores de Capacitor y geocodificación con OpenCage.
 
 ---
 
@@ -19,6 +19,7 @@ Cada proyecto se encuentra alojado en una **rama independiente** con sus depende
 | [`challenger-06`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-06) | **Reto 6: Persistencia Multi-Motor y Sensor de Red** | Ionic React + TypeScript + Firestore + RTDB + Dexie + Capacitor | Persistencia en tres capas: Contactos en Cloud Firestore (`useCollection`), Tareas en Realtime Database (`useRealTimeCollection`), Frutas en Dexie IndexedDB (`useDexie`) offline-first y sensor `@capacitor/network` con bloqueo de escritura cuando `isOnline === false`. |
 | [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-07) | **Reto 7: Laboratorio de Sensores Nativos** | Ionic React + TypeScript + Capacitor + APK Android | Panel de control de hardware (`Home.tsx`) y 9 pantallas dedicadas con Custom Hooks para Geolocation (GPS y tracking en vivo), Cámara (captura y galería), Acelerómetro (ejes X/Y/Z y detector Shake), Dispositivo (batería y UUID), Hápticos (impactos y vibración), Filesystem (lectura/escritura en Documents), Notificaciones Locales (programables), Push Notifications (FCM) y Red, con APK compilado `challenger-07-debug.apk`. |
 | [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-08) | **Reto 8: Supabase Auth, PostgreSQL RLS, Realtime y Storage** | Ionic React + TypeScript + Capacitor + Supabase + APK Android | Autenticación con Supabase Auth, CRUD de tareas con Row Level Security (RLS), sincronización reactiva en vivo con Supabase Realtime (`postgres_changes`), captura de fotos con la cámara nativa (`@capacitor/camera`) y subida de avatar a Supabase Storage con políticas por usuario, con APK compilado `challenger-08-debug.apk`. |
+| [`challenger-09`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-09) | **Reto 9: Mapas con Leaflet y Sensores Nativos** | Ionic React + TypeScript + Capacitor + Leaflet + OpenCage + APK Android | Mapa interactivo con `react-leaflet` y seguimiento de ruta GPS (`@capacitor/geolocation`), verificación de red antes de consultar OpenCage o recargar el mapa (`@capacitor/network`), vibración al iniciar y detener el tracking (`@capacitor/haptics`), parada automática con batería por debajo del 15% (`@capacitor/device`), historial de rutas en JSON con `@capacitor/preferences` y geocodificación inversa con OpenCage Data, con APK compilado `challenger-09-debug.apk`. |
 
 ---
 
@@ -41,6 +42,7 @@ git checkout challenger-05                  # Reto 5: Firebase Auth & Context AP
 git checkout challenger-06                  # Reto 6: Firestore + Realtime DB + Dexie + Network
 git checkout challenger-07                  # Reto 7: Sensores Nativos + APK Android
 git checkout challenger-08                  # Reto 8: Supabase Auth + RLS + Realtime + Storage + APK
+git checkout challenger-09                  # Reto 9: Leaflet + Network + Haptics + Device + Preferences + APK
 
 # 3. En cada rama, instalar dependencias y ejecutar:
 npm install
@@ -56,6 +58,7 @@ npm run dev
 | **Reto 3** | `TaskManager.apk` | En la rama [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-03/TaskManager.apk) |
 | **Reto 7** | `challenger-07-debug.apk` | En la rama [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-07/challenger-07-debug.apk) |
 | **Reto 8** | `challenger-08-debug.apk` | En la rama [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-08/challenger-08-debug.apk) |
+| **Reto 9** | `challenger-09-debug.apk` | En la rama [`challenger-09`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-09/challenger-09-debug.apk) |
 
 ---
 
