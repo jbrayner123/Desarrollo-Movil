@@ -1,0 +1,439 @@
+@use '../../theme/tokens' as *;
+
+.page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: calc(#{$space-8} + env(safe-area-inset-top)) $space-6 $space-8;
+}
+
+.brand {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: $yellow;
+  color: $ink;
+  font-size: 28px;
+  margin-bottom: $space-6;
+}
+
+.title {
+  font-size: 2.1rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin-top: $space-2;
+  font-size: 0.98rem;
+  color: $muted;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  margin-top: $space-8;
+}
+
+.field label {
+  display: block;
+  margin-bottom: $space-2;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  height: 54px;
+  padding: 0 $space-4;
+  border: 1px solid $border-strong;
+  border-radius: $radius-md;
+  background: $surface;
+  transition: border-color $fast $ease, box-shadow $fast $ease;
+
+  &:focus-within {
+    border-color: $ink;
+    box-shadow: 0 0 0 3px rgba(17, 19, 24, 0.06);
+  }
+
+  > ion-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: $muted;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.95rem;
+    color: $ink;
+    outline: none;
+
+    &::placeholder {
+      color: $subtle;
+    }
+  }
+}
+
+.controlError {
+  border-color: $danger;
+}
+
+.toggle {
+  @include reset-button;
+  @include pressable(0.9);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: $muted;
+}
+
+.fieldError {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b4262b;
+  animation: enter-up 200ms $ease both;
+}
+
+.formError {
+  padding: $space-3 $space-4;
+  border-radius: $radius-sm;
+  background: #fdecec;
+  color: #b4262b;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.submit {
+  @include reset-button;
+  @include pressable(0.98);
+  height: 56px;
+  margin-top: $space-2;
+  border-radius: $radius-pill;
+  display: grid;
+  place-items: center;
+  background: $ink;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+
+  &:disabled {
+    opacity: 0.7;
+  }
+
+  ion-spinner {
+    color: #ffffff;
+  }
+}
+
+.switch {
+  margin-top: $space-6;
+  text-align: center;
+  font-size: 0.9rem;
+  color: $muted;
+
+  a {
+    color: $ink;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid $yellow;
+  }
+}
+
+.demo {
+  display: flex;
+  gap: $space-3;
+  margin-top: auto;
+  padding: $space-4;
+  border-radius: $radius-md;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: $muted;
+
+  ion-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: $ink;
+  }
+
+  strong {
+    color: $ink;
+  }
+}
+
+// ---- Registro por pasos ------------------------------------------------------
+.registerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-6;
+}
+
+.brandSmall {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: $yellow;
+  font-size: 22px;
+}
+
+.back {
+  @include reset-button;
+  @include pressable(0.92);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 20px;
+}
+
+.steps {
+  display: flex;
+  gap: 6px;
+
+  span {
+    width: 28px;
+    height: 6px;
+    border-radius: $radius-pill;
+    background: $border-strong;
+    transition: background-color $base $ease, width $base $ease;
+  }
+
+  .stepOn {
+    width: 40px;
+    background: $ink;
+  }
+}
+
+// ---- Transicion entre pasos del registro ---------------------------------------
+.stepPanel {
+  will-change: transform, opacity;
+}
+
+.enterRight {
+  animation: step-in-right 340ms $ease both;
+}
+
+.enterLeft {
+  animation: step-in-left 340ms $ease both;
+}
+
+.leaveLeft {
+  animation: step-out-left 180ms ease-in both;
+}
+
+.leaveRight {
+  animation: step-out-right 180ms ease-in both;
+}
+
+// Los campos de cada paso aparecen escalonados despues del panel.
+.enterRight > *,
+.enterLeft > * {
+  animation: enter-up 380ms $ease both;
+}
+
+@for $i from 1 through 8 {
+  .enterRight > :nth-child(#{$i}),
+  .enterLeft > :nth-child(#{$i}) {
+    animation-delay: #{80 + ($i - 1) * 45}ms;
+  }
+}
+
+@keyframes step-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes step-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes step-out-left {
+  to {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+}
+
+@keyframes step-out-right {
+  to {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  margin: $space-6 0;
+}
+
+.roleCard {
+  @include reset-button;
+  @include pressable(0.98);
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+  padding: $space-4;
+  text-align: left;
+  background: $surface;
+  border: 1.5px solid $border;
+  border-radius: $radius-lg;
+  transition: transform $fast $ease, border-color $base $ease;
+
+  > span:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  strong {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  small {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: $muted;
+  }
+}
+
+.roleActive {
+  border-color: $ink;
+}
+
+.roleIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-sm;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 22px;
+}
+
+.mint {
+  background: $mint;
+}
+
+.lavender {
+  background: $lavender;
+}
+
+.pink {
+  background: $pink;
+}
+
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+}
+
+.progress {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: 0.9rem;
+}
+
+// El boton principal siempre ocupa todo el ancho, este o no dentro de un formulario.
+.submit {
+  width: 100%;
+}
+
+// "Continuar" de los pasos del registro: texto, linea fina y flecha, sin fondo.
+.next {
+  @include reset-button;
+  width: 100%;
+  height: 56px;
+  margin-top: $space-2;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  color: $ink;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  ion-icon {
+    flex-shrink: 0;
+    font-size: 24px;
+    transition: transform $base $ease;
+  }
+
+  &:hover ion-icon,
+  &:focus-visible ion-icon {
+    transform: translateX(4px);
+  }
+
+  // Al presionar, la linea se acorta y la flecha avanza: se siente como "seguir".
+  &:active ion-icon {
+    transform: translateX(8px);
+  }
+
+  &:active .nextLine {
+    transform: scaleX(0.92);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $yellow;
+    outline-offset: 4px;
+    border-radius: $radius-sm;
+  }
+}
+
+.nextLine {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: $ink;
+  transform-origin: left center;
+  transition: transform $base $ease;
+}
+
+// En una cuadricula, los campos deben poder encogerse por debajo de su ancho natural;
+// si no, la segunda columna se sale de la pantalla.
+.twoCols > * {
+  min-width: 0;
+}
+
+.control input {
+  width: 100%;
+}
