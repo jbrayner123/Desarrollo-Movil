@@ -1,0 +1,250 @@
+@use '../../theme/tokens' as *;
+
+.card {
+  @include card;
+  padding: $space-4;
+  margin-bottom: $space-4;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-3;
+}
+
+.author {
+  flex: 1;
+  min-width: 0;
+
+  h3 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: $ink;
+    line-height: 1.3;
+  }
+
+  time {
+    font-size: 0.78rem;
+    color: $muted;
+  }
+}
+
+.iconButton {
+  @include reset-button;
+  @include pressable(0.9);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: $ink;
+
+  &:hover {
+    background: $bg;
+  }
+}
+
+// ---- Foto ---------------------------------------------------------------------
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-md;
+  aspect-ratio: 4 / 3;
+  background: #e9ebef;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 500ms $ease;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: $space-3;
+  left: $space-3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 $space-3;
+  border-radius: $radius-pill;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $ink;
+
+  ion-icon {
+    font-size: 15px;
+  }
+}
+
+.inline {
+  position: static;
+  margin-bottom: $space-2;
+}
+
+.mint {
+  background: $mint;
+}
+
+.pink {
+  background: $pink;
+}
+
+.lavender {
+  background: $lavender;
+}
+
+.location {
+  position: absolute;
+  left: $space-3;
+  bottom: $space-3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 $space-3;
+  border-radius: $radius-pill;
+  background: $surface;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: $ink;
+
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+.text {
+  margin: $space-3 $space-1 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: $ink-soft;
+}
+
+// ---- Acciones -------------------------------------------------------------------
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  margin-top: $space-4;
+  padding-top: $space-3;
+  border-top: 1px solid $border;
+}
+
+.action {
+  @include reset-button;
+  @include pressable(0.92);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 $space-1;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: $ink;
+
+  ion-icon {
+    font-size: 21px;
+  }
+}
+
+.liked ion-icon {
+  color: $danger;
+}
+
+.pop {
+  animation: heart-pop 360ms $ease;
+}
+
+.converse {
+  margin-left: auto;
+  font-weight: 500;
+  color: $muted;
+  font-size: 0.82rem;
+
+  ion-icon {
+    font-size: 19px;
+    color: $ink;
+  }
+}
+
+.butter {
+  background: $butter;
+}
+
+// Insignia del tipo de cuenta en publicaciones de negocios.
+.roleTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: $space-2;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  background: $lavender;
+  font-size: 0.68rem;
+  font-weight: 700;
+  vertical-align: middle;
+
+  ion-icon {
+    font-size: 11px;
+  }
+}
+
+.inlineMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-bottom: $space-1;
+
+  .inline {
+    margin-bottom: 0;
+  }
+}
+
+.inlineLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $muted;
+}
+
+.joinButton {
+  @include reset-button;
+  @include pressable(0.97);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  margin-top: $space-3;
+  padding: 0 $space-4;
+  border-radius: $radius-pill;
+  background: $mint;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: $ink;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+.sky {
+  background: $sky;
+}
+
+// Fotos verticales: formato 4:5 y encuadre un poco por encima del centro (donde suele estar la cara).
+.portrait {
+  aspect-ratio: 4 / 5;
+
+  img {
+    object-position: center 35%;
+  }
+}

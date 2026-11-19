@@ -1,0 +1,74 @@
+@use '../../theme/tokens' as *;
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  ion-icon {
+    font-size: 16px;
+  }
+}
+
+.separator {
+  color: $subtle;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $blue;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-4;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+.sortButton {
+  @include reset-button;
+  @include pressable(0.95);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $muted;
+  font-size: 0.82rem;
+  font-weight: 500;
+
+  ion-icon {
+    font-size: 20px;
+    color: $ink;
+  }
+}
+
+.footer {
+  margin: $space-4 0 $space-2;
+  text-align: center;
+  font-size: 0.8rem;
+  color: $muted;
+}
+
+.cacheNotice {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin-bottom: $space-4;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 0.84rem;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
