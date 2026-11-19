@@ -1,0 +1,193 @@
+rules_version = '2';
+
+// Reglas de seguridad de Manada (equivalente a las politicas RLS).
+// Roles en users/{uid}.role: 'owner' (dueno), 'vet' (veterinaria), 'petshop' y 'admin'.
+// El rol 'admin' nunca se puede elegir al registrarse: se asigna a mano en la consola.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- Funciones auxiliares ------------------------------------------------
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function userPath(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
+    function myRole() {
+      return get(userPath(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return signedIn() && exists(userPath(request.auth.uid)) && myRole() == 'admin';
+    }
+
+    // true si la escritura solo modifica los campos indicados.
+    function onlyChanges(keys) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(keys);
+    }
+
+    function changesAny(keys) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasAny(keys);
+    }
+
+    function validText(value, max) {
+      return value is string && value.size() > 0 && value.size() <= max;
+    }
+
+    // Categorias de publicacion permitidas segun el rol.
+    // "momento" (foto libre) lo puede publicar cualquier cuenta.
+    function categoryAllowed(role, category) {
+      return category == 'momento'
+        || (role == 'owner' && category in ['paseo', 'perdido', 'tip'])
+        || (role == 'vet' && category in ['tip', 'aviso'])
+        || (role == 'petshop' && category == 'promo')
+        || (role == 'admin' && category in ['paseo', 'perdido', 'tip', 'aviso', 'promo']);
+    }
+
+    // Texto valido de una publicacion: obligatorio, salvo en un "momento" con foto.
+    function validPostText(data) {
+      return (data.text is string && data.text.size() <= 500)
+        && (data.text.size() > 0 || (data.category == 'momento' && data.imageUrl is string));
+    }
+
+    // ---- Usuarios ------------------------------------------------------------
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if isSelf(uid)
+        && request.resource.data.uid == uid
+        && request.resource.data.role in ['owner', 'vet', 'petshop'];
+      // Cada quien edita su perfil sin cambiar su rol; el admin puede editar cualquiera.
+      allow update: if (isSelf(uid) && request.resource.data.role == resource.data.role) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ---- Mascotas ------------------------------------------------------------
+    match /pets/{petId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow update: if signedIn() && resource.data.ownerId == request.auth.uid
+        && request.resource.data.ownerId == request.auth.uid;
+      allow delete: if signedIn() && (resource.data.ownerId == request.auth.uid || isAdmin());
+    }
+
+    // ---- Negocios (veterinarias y petshops). El id del documento es el uid del dueno.
+    match /businesses/{uid} {
+      allow read: if signedIn();
+
+      allow create: if isSelf(uid)
+        && myRole() in ['vet', 'petshop']
+        && request.resource.data.type == myRole()
+        && request.resource.data.ownerId == uid
+        && request.resource.data.verified == false
+        && request.resource.data.ratingSum == 0
+        && request.resource.data.ratingCount == 0
+        && request.resource.data.positiveCount == 0;
+
+      allow update: if
+        // El dueno edita sus datos, pero no la verificacion ni las calificaciones.
+        (isSelf(uid) && !changesAny(['verified', 'ratingSum', 'ratingCount', 'positiveCount', 'type', 'ownerId']))
+        // El admin solo cambia la verificacion.
+        || (isAdmin() && onlyChanges(['verified']))
+        // Un dueno de mascota suma su resena una sola vez, en la misma operacion que la crea.
+        || (signedIn() && !isSelf(uid)
+          && onlyChanges(['ratingSum', 'ratingCount', 'positiveCount'])
+          && request.resource.data.ratingCount == resource.data.ratingCount + 1
+          && request.resource.data.ratingSum - resource.data.ratingSum >= 1
+          && request.resource.data.ratingSum - resource.data.ratingSum <= 5
+          && request.resource.data.positiveCount - resource.data.positiveCount in [0, 1]
+          && !exists(/databases/$(database)/documents/reviews/$(uid + '_' + request.auth.uid))
+          && existsAfter(/databases/$(database)/documents/reviews/$(uid + '_' + request.auth.uid)));
+
+      allow delete: if isAdmin();
+    }
+
+    // ---- Resenas: una por usuario y negocio (id = negocio_usuario) -----------------
+    match /reviews/{reviewId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && myRole() == 'owner'
+        && request.resource.data.authorId == request.auth.uid
+        && reviewId == request.resource.data.businessId + '_' + request.auth.uid
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5;
+      allow delete: if isAdmin();
+    }
+
+    // ---- Publicaciones -------------------------------------------------------
+    match /posts/{postId} {
+      allow read: if signedIn();
+
+      allow create: if signedIn()
+        && request.resource.data.authorId == request.auth.uid
+        && validPostText(request.resource.data)
+        && request.resource.data.likesCount == 0
+        && request.resource.data.commentsCount == 0
+        && categoryAllowed(myRole(), request.resource.data.category);
+
+      allow update: if
+        // El autor edita su texto o estado, no los contadores.
+        (signedIn() && resource.data.authorId == request.auth.uid
+          && !changesAny(['authorId', 'likesCount', 'commentsCount', 'createdAt', 'category']))
+        // Me gusta: +1 solo al crear tu like, -1 solo al borrarlo.
+        || (signedIn() && onlyChanges(['likesCount'])
+          && ((request.resource.data.likesCount == resource.data.likesCount + 1
+              && !exists(/databases/$(database)/documents/posts/$(postId)/likes/$(request.auth.uid))
+              && existsAfter(/databases/$(database)/documents/posts/$(postId)/likes/$(request.auth.uid)))
+            || (request.resource.data.likesCount == resource.data.likesCount - 1
+              && exists(/databases/$(database)/documents/posts/$(postId)/likes/$(request.auth.uid))
+              && !existsAfter(/databases/$(database)/documents/posts/$(postId)/likes/$(request.auth.uid)))))
+        // Comentarios: el contador sube o baja de a uno.
+        || (signedIn() && onlyChanges(['commentsCount'])
+          && request.resource.data.commentsCount - resource.data.commentsCount in [1, -1]);
+
+      allow delete: if signedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
+
+      match /likes/{uid} {
+        allow read: if signedIn();
+        allow create, delete: if isSelf(uid);
+      }
+
+      match /comments/{commentId} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+          && request.resource.data.authorId == request.auth.uid
+          && validText(request.resource.data.text, 280);
+        allow delete: if signedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
+      }
+    }
+
+    // ---- Chats: id = uidA_uidB (ordenados). Solo los dos miembros los ven. --------
+    match /chats/{chatId} {
+      allow get: if signedIn() && request.auth.uid in chatId.split('_');
+      allow list: if signedIn() && request.auth.uid in resource.data.members;
+      allow create: if signedIn()
+        && request.auth.uid in request.resource.data.members
+        && request.resource.data.members.size() == 2
+        && chatId == request.resource.data.members[0] + '_' + request.resource.data.members[1];
+      allow update: if signedIn()
+        && request.auth.uid in resource.data.members
+        && request.resource.data.members == resource.data.members;
+
+      match /messages/{messageId} {
+        allow read: if signedIn() && request.auth.uid in chatId.split('_');
+        allow create: if signedIn()
+          && request.auth.uid in chatId.split('_')
+          && request.resource.data.senderId == request.auth.uid
+          && validText(request.resource.data.text, 1000);
+      }
+    }
+
+    // ---- Reportes de contenido: cualquiera reporta, solo el admin los ve. --------------
+    match /reports/{reportId} {
+      allow create: if signedIn() && request.resource.data.reporterId == request.auth.uid;
+      allow read, delete: if isAdmin();
+    }
+  }
+}
