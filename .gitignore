@@ -42,3 +42,7 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Proyecto final: credenciales locales, nunca se versionan
+.env
+!.env.example
