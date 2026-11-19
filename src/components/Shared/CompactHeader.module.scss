@@ -1,0 +1,39 @@
+@use '../../theme/tokens' as *;
+
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  min-height: 56px;
+  padding: calc(#{$space-2} + var(--ion-safe-area-top, 0px)) $space-5 $space-2;
+  background: rgba(247, 248, 250, 0.97);
+  border-bottom: 1px solid $border;
+  transform: translateY(-110%);
+  transition: transform 260ms $ease;
+  pointer-events: none;
+}
+
+.visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.title {
+  @include reset-button;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: $ink;
+  cursor: pointer;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+}

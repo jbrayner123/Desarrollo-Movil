@@ -1,0 +1,208 @@
+@use '../../theme/tokens' as *;
+
+// ---- Avatar -----------------------------------------------------------------
+.avatar {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: $lavender;
+  color: $ink;
+  font-weight: 700;
+
+  // La foto ocupa exactamente el circulo, sea vertical u horizontal: con posicion
+  // absoluta no depende del alto natural de la imagen (antes una foto vertical se
+  // estiraba y el avatar se veia ovalado).
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.online {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28%;
+  height: 28%;
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 50%;
+  background: $success;
+  border: 2px solid $surface;
+}
+
+// ---- Encabezado de pagina ---------------------------------------------------
+.header {
+  margin-bottom: $space-5;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-3;
+}
+
+.eyebrow {
+  margin-bottom: $space-1;
+  color: $muted;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.title {
+  font-size: 1.95rem;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: $ink;
+}
+
+.headerAction {
+  padding-top: $space-1;
+}
+
+.headerMeta {
+  margin-top: $space-3;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+  color: $muted;
+  font-size: 0.88rem;
+}
+
+// ---- Chips de filtro --------------------------------------------------------
+.chips {
+  display: flex;
+  gap: $space-2;
+  overflow-x: auto;
+  margin: 0 (-$space-5) $space-5;
+  padding: 2px $space-5;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.chip {
+  @include reset-button;
+  @include pressable(0.95);
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 $space-5;
+  border-radius: $radius-pill;
+  background: $surface;
+  border: 1px solid $border-strong;
+  color: $ink;
+  font-size: 0.92rem;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+.chipActive {
+  background: $ink;
+  border-color: $ink;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+// ---- Estado vacio -----------------------------------------------------------
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-2;
+  padding: $space-8 $space-4;
+
+  h3 {
+    margin: $space-2 0 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  p {
+    max-width: 280px;
+    color: $muted;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: $space-2;
+  }
+}
+
+.emptyIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 24px;
+  color: $ink;
+}
+
+// ---- Encabezado de detalle ----------------------------------------------------
+.detailToolbar {
+  --background: #{$bg};
+  --padding-start: #{$space-4};
+  --padding-end: #{$space-4};
+  --min-height: 64px;
+}
+
+.detailBar {
+  display: grid;
+  grid-template-columns: 44px 1fr minmax(44px, auto);
+  align-items: center;
+  gap: $space-3;
+}
+
+.detailTitle {
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.detailEnd {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.roundButton {
+  @include reset-button;
+  @include pressable(0.92);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 22px;
+  color: $ink;
+}
+
+// Encabezado de detalle que se oculta al desplazarse hacia abajo.
+.detailHeader {
+  transition: transform 260ms $ease;
+}
+
+.detailHeaderHidden {
+  transform: translateY(-100%);
+}

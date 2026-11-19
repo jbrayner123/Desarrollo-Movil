@@ -1,0 +1,59 @@
+/*
+ * Variables globales de Ionic y de la aplicacion.
+ * Paleta plana: fondo neutro, tarjetas blancas, amarillo y azul solidos. Sin gradientes.
+ */
+:root {
+  --app-bg: #f7f8fa;
+  --app-surface: #ffffff;
+  --app-ink: #111318;
+  --app-muted: #6b7080;
+  --app-border: #ecedf1;
+  --app-yellow: #ffc700;
+  --app-blue: #3b44db;
+  --app-mint: #a8f2d2;
+  --app-pink: #ffcdea;
+  --app-danger: #e5484d;
+  /* Espacio reservado para la barra inferior flotante. */
+  --app-menu-space: 112px;
+
+  --ion-font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ion-background-color: var(--app-bg);
+  --ion-background-color-rgb: 247, 248, 250;
+  --ion-text-color: var(--app-ink);
+  --ion-text-color-rgb: 17, 19, 24;
+  --ion-toolbar-background: var(--app-bg);
+  --ion-toolbar-color: var(--app-ink);
+  --ion-border-color: var(--app-border);
+  --ion-item-background: var(--app-surface);
+
+  --ion-color-primary: #111318;
+  --ion-color-primary-rgb: 17, 19, 24;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #0f1115;
+  --ion-color-primary-tint: #292b2f;
+
+  --ion-color-secondary: #3b44db;
+  --ion-color-secondary-rgb: 59, 68, 219;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #343cc1;
+  --ion-color-secondary-tint: #4f57df;
+
+  --ion-color-warning: #ffc700;
+  --ion-color-warning-rgb: 255, 199, 0;
+  --ion-color-warning-contrast: #111318;
+  --ion-color-warning-contrast-rgb: 17, 19, 24;
+  --ion-color-warning-shade: #e0af00;
+  --ion-color-warning-tint: #ffcd1a;
+
+  --ion-color-danger: #e5484d;
+  --ion-color-danger-rgb: 229, 72, 77;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #ca3f44;
+  --ion-color-danger-tint: #e85a5f;
+
+  --ion-color-medium: #6b7080;
+  --ion-color-medium-rgb: 107, 112, 128;
+}

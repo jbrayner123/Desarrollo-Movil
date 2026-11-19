@@ -1,0 +1,98 @@
+@use '../../theme/tokens' as *;
+
+.wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(#{$space-4} + env(safe-area-inset-bottom));
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  padding: 0 $space-4;
+  pointer-events: none;
+  animation: menu-in 360ms $ease both;
+}
+
+.bar {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 400px;
+  height: 72px;
+  padding: 0 $space-3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $ink;
+  border-radius: $radius-pill;
+  box-shadow: $shadow-float;
+}
+
+.item {
+  @include reset-button;
+  @include pressable(0.9);
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #a7abb6;
+  font-size: 24px;
+  transition: transform $fast $ease, background-color $base $ease, color $base $ease;
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $yellow;
+    outline-offset: 2px;
+  }
+}
+
+.active {
+  background: $yellow;
+  color: $ink;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
+.primary {
+  background: $yellow;
+  color: $ink;
+  font-size: 30px;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: $radius-pill;
+  background: $blue;
+  color: #ffffff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  border: 2px solid $ink;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

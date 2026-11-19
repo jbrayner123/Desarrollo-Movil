@@ -1,0 +1,119 @@
+@use './tokens' as *;
+
+// ---- Base -------------------------------------------------------------------
+html,
+body {
+  background: #e9eaef;
+  font-family: $font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// En pantallas grandes la app se muestra como un telefono centrado, igual que el prototipo.
+@media (min-width: 640px) {
+  // Ancho fijo y margenes automaticos: centra el marco sin transform, que entra en
+  // conflicto con el posicionamiento de Ionic y desplazaba la app a la izquierda.
+  ion-app {
+    left: 0;
+    right: 0;
+    width: 430px;
+    margin: 0 auto;
+    border-left: 1px solid $border-strong;
+    border-right: 1px solid $border-strong;
+    box-shadow: 0 0 40px rgba(17, 19, 24, 0.06);
+  }
+}
+
+ion-content {
+  --background: #{$bg};
+}
+
+ion-toolbar {
+  --border-width: 0 !important;
+}
+
+ion-button {
+  --box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+// ---- Utilidades globales ----------------------------------------------------
+
+// Contenedor de pagina con espacio para la barra inferior flotante.
+.page-pad {
+  padding: $space-5 $space-5 var(--app-menu-space);
+  // En el telefono la app ocupa toda la pantalla: se suma el alto de la barra de estado.
+  padding-top: calc(#{$space-5} + var(--ion-safe-area-top, 0px));
+}
+
+.pressable {
+  @include pressable;
+}
+
+// Animacion de entrada escalonada: style={{ '--i': index }}.
+.enter-up {
+  opacity: 0;
+  animation: enter-up 420ms $ease forwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Modales tipo hoja con esquinas suaves.
+ion-modal.sheet-modal {
+  --border-radius: 24px;
+  --background: #{$surface};
+}
+
+// Popups de Leaflet con el estilo de la app.
+.leaflet-popup-content-wrapper {
+  border-radius: $radius-sm;
+  box-shadow: $shadow-card;
+  font-family: $font;
+}
+
+.leaflet-container {
+  font-family: $font;
+  background: #eef0f3;
+}
+
+// Respeta la preferencia de reducir movimiento.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}

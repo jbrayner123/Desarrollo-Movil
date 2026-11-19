@@ -1,0 +1,88 @@
+// Tokens de diseno compartidos por los CSS Modules.
+// Uso: @use '../../theme/tokens' as *;
+// Colores planos, sin gradientes. Las variables CSS equivalentes viven en variables.css.
+
+// ---- Color ------------------------------------------------------------------
+$bg: #f7f8fa;
+$surface: #ffffff;
+$ink: #111318;
+$ink-soft: #2a2d35;
+$muted: #6b7080;
+$subtle: #9a9eab;
+$border: #ecedf1;
+$border-strong: #dfe1e7;
+
+$yellow: #ffc700;
+$yellow-ink: #1a1500;
+$blue: #3b44db;
+$mint: #a8f2d2;
+$pink: #ffcdea;
+$lavender: #dcdcfd;
+$butter: #fff1b8;
+$sky: #d6ecff;
+$danger: #e5484d;
+$success: #1f9d63;
+
+// ---- Tipografia -------------------------------------------------------------
+$font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+// ---- Espaciado y radios -----------------------------------------------------
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+
+$radius-sm: 12px;
+$radius-md: 18px;
+$radius-lg: 24px;
+$radius-pill: 999px;
+
+// ---- Sombras suaves y realistas ---------------------------------------------
+$shadow-card: 0 1px 2px rgba(17, 19, 24, 0.04), 0 4px 16px rgba(17, 19, 24, 0.04);
+$shadow-float: 0 10px 30px rgba(17, 19, 24, 0.22);
+
+// ---- Movimiento -------------------------------------------------------------
+$ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+$fast: 140ms;
+$base: 240ms;
+
+// ---- Mixins -----------------------------------------------------------------
+
+// Microinteraccion tactil: escala sutil al presionar.
+@mixin pressable($scale: 0.97) {
+  transition: transform $fast $ease, background-color $fast $ease, opacity $fast $ease;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+
+  &:active {
+    transform: scale($scale);
+  }
+}
+
+@mixin card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+@mixin reset-button {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+// Texto pequeno en mayusculas (por ejemplo "PLAN DE HOY").
+@mixin eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
