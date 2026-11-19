@@ -1,0 +1,207 @@
+/*
+ * Tema Challenge 10: diseno plano y sobrio.
+ * Fondo gris neutro, tarjetas blancas con borde de 1 px, sin gradientes ni sombras marcadas.
+ */
+:root {
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-border: #e1e4e8;
+  --color-text: #1c1f24;
+  --color-text-muted: #5f6670;
+
+  --ion-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ion-background-color: var(--color-bg);
+  --ion-text-color: var(--color-text);
+  --ion-toolbar-background: var(--color-surface);
+  --ion-toolbar-color: var(--color-text);
+  --ion-border-color: var(--color-border);
+
+  --ion-color-primary: #1f2a44;
+  --ion-color-primary-rgb: 31, 42, 68;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1b253c;
+  --ion-color-primary-tint: #354057;
+
+  --ion-color-dark: #1c1f24;
+  --ion-color-medium: #6b7280;
+}
+
+ion-toolbar {
+  --border-width: 0;
+}
+
+ion-header ion-toolbar:last-of-type {
+  border-bottom: 1px solid var(--color-border);
+}
+
+ion-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+ion-button {
+  --box-shadow: none;
+  --border-radius: 6px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* ---- Barra de busqueda --------------------------------------------------- */
+.search-toolbar {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-bottom: 8px;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.search-form ion-searchbar {
+  --background: var(--color-bg);
+  --box-shadow: none;
+  --border-radius: 6px;
+  padding: 0;
+  flex: 1;
+}
+
+.search-form ion-button {
+  margin: 0;
+  height: 40px;
+}
+
+/* ---- Contenido ----------------------------------------------------------- */
+.page-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 12px 24px;
+}
+
+.state-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.state-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.state-text {
+  margin: 0 0 8px;
+  max-width: 420px;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.suggestions ion-chip {
+  --color: var(--color-text);
+  border-color: var(--color-border);
+  background: var(--color-surface);
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--ion-color-medium);
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+.results-summary {
+  margin: 0 4px 4px;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- Cuadricula y tarjetas ----------------------------------------------- */
+.gif-grid {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: 4px;
+}
+
+.gif-card {
+  margin: 0;
+  height: 100%;
+  box-shadow: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.gif-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.gif-card__media {
+  width: 100%;
+  max-height: 260px;
+  overflow: hidden;
+  background: #e9ebee;
+}
+
+.gif-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gif-card__title {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.load-more ion-button {
+  min-width: 160px;
+}
+
+/* ---- Pie de pagina ------------------------------------------------------- */
+.footer-toolbar {
+  --min-height: 36px;
+  border-top: 1px solid var(--color-border);
+}
+
+.attribution {
+  margin: 0;
+  text-align: center;
+  font-size: 0.75rem;
+}

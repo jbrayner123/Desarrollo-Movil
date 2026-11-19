@@ -1,69 +1,121 @@
-# Desarrollo de Aplicaciones Web y Móviles
+# Challenge 10: Consumo de APIs Externas con GIPHY
 
-Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **9 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React**, **Capacitor**, **Firebase** (Auth, Cloud Firestore, Realtime Database), **Dexie.js (IndexedDB)**, **Sensores Nativos de Hardware** **Supabase** (Auth, PostgreSQL RLS, Realtime y Storage) y **Mapas con Leaflet** integrados con sensores de Capacitor y geocodificación con OpenCage.
+Aplicacion movil desarrollada con **Ionic Framework** (`@ionic/react`), **TypeScript**, **Capacitor** y **Axios**, correspondiente al **Challenge 10** del curso de *Desarrollo de Software para Plataformas Moviles*.
 
----
-
-## 📌 Organización del Repositorio por Ramas
-
-Cada proyecto se encuentra alojado en una **rama independiente** con sus dependencias y código fuente listos para su compilación y ejecución directa:
-
-| Rama | Proyecto | Tecnología | Descripción |
-| :--- | :--- | :--- | :--- |
-| [`parcial1-jose-brayner-minotta`](https://github.com/jbrayner123/Desarrollo-Movil/tree/parcial1-jose-brayner-minotta) | **Parcial 1: Sistema Hospitalario** | React + Ionic React | Contiene los 2 ejercicios del examen: PWA React (Gestión de Pacientes) e Ionic App (Visitas Médicas Domiciliarias) junto con sus evidencias fotográficas. |
-| [`challenger-01`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-01) | **Reto 1: Gestor de Contactos** | React + Vite | Componentes funcionales modulares (`Header`, `ContactForm`, `ContactList`, `ContactItem`, `Loader`) y manejo de estado CRUD con `useState` y `useEffect`. |
-| [`challenger-02`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-02) | **Reto 2: Gestor PWA** | React + Vite PWA | Evolución PWA con Service Worker, estrategia híbrida de caché (Precaché + Runtime Caching), manifest y despliegue en producción en Netlify. |
-| [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-03) | **Reto 3: Task Manager Móvil** | Ionic React + Capacitor | Gestor de tareas con componentes nativos de Ionic (`IonPage`, `IonCard`, `IonCheckbox`), tachado dinámico y archivo compilado `TaskManager.apk` listo para Android. |
-| [`challenger-04`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-04) | **Reto 4: Storage y Rutas Protegidas** | Ionic React + TypeScript | Flujo de autenticación con credenciales demo, almacenamiento de token en `localStorage`, protección de rutas con recarga y cierre de sesión (Logout). |
-| [`challenger-05`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-05) | **Reto 5: Firebase Auth & Task Manager Pro** | Ionic React + TypeScript + Firebase | Autenticación completa con Firebase Auth, Context API desacoplada (`AuthContext`, `TasksContext`), aislamiento de tareas por usuario y rutas protegidas. |
-| [`challenger-06`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-06) | **Reto 6: Persistencia Multi-Motor y Sensor de Red** | Ionic React + TypeScript + Firestore + RTDB + Dexie + Capacitor | Persistencia en tres capas: Contactos en Cloud Firestore (`useCollection`), Tareas en Realtime Database (`useRealTimeCollection`), Frutas en Dexie IndexedDB (`useDexie`) offline-first y sensor `@capacitor/network` con bloqueo de escritura cuando `isOnline === false`. |
-| [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-07) | **Reto 7: Laboratorio de Sensores Nativos** | Ionic React + TypeScript + Capacitor + APK Android | Panel de control de hardware (`Home.tsx`) y 9 pantallas dedicadas con Custom Hooks para Geolocation (GPS y tracking en vivo), Cámara (captura y galería), Acelerómetro (ejes X/Y/Z y detector Shake), Dispositivo (batería y UUID), Hápticos (impactos y vibración), Filesystem (lectura/escritura en Documents), Notificaciones Locales (programables), Push Notifications (FCM) y Red, con APK compilado `challenger-07-debug.apk`. |
-| [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-08) | **Reto 8: Supabase Auth, PostgreSQL RLS, Realtime y Storage** | Ionic React + TypeScript + Capacitor + Supabase + APK Android | Autenticación con Supabase Auth, CRUD de tareas con Row Level Security (RLS), sincronización reactiva en vivo con Supabase Realtime (`postgres_changes`), captura de fotos con la cámara nativa (`@capacitor/camera`) y subida de avatar a Supabase Storage con políticas por usuario, con APK compilado `challenger-08-debug.apk`. |
-| [`challenger-09`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-09) | **Reto 9: Mapas con Leaflet y Sensores Nativos** | Ionic React + TypeScript + Capacitor + Leaflet + OpenCage + APK Android | Mapa interactivo con `react-leaflet` y seguimiento de ruta GPS (`@capacitor/geolocation`), verificación de red antes de consultar OpenCage o recargar el mapa (`@capacitor/network`), vibración al iniciar y detener el tracking (`@capacitor/haptics`), parada automática con batería por debajo del 15% (`@capacitor/device`), historial de rutas en JSON con `@capacitor/preferences` y geocodificación inversa con OpenCage Data, con APK compilado `challenger-09-debug.apk`. |
+La aplicacion permite buscar GIFs escribiendo en un campo de texto y los muestra en una cuadricula responsiva, consumiendo el endpoint de busqueda de la **API de GIPHY**. Incluye cliente HTTP centralizado, tipado completo de la respuesta, cancelacion de peticiones con `AbortController` y manejo explicito de los estados de carga, error, vacio y resultados.
 
 ---
 
-## 💻 Instrucciones para Clonar y Cambiar de Rama
+## 1. Requisitos Previos: API Key de GIPHY
 
-Para clonar el repositorio completo y navegar entre los diferentes proyectos:
+1. Crear una cuenta en [developers.giphy.com](https://developers.giphy.com/).
+2. En el **Dashboard**, pulsar **Create an App**, elegir **API** y copiar la API Key generada.
+3. Copiar la plantilla de variables de entorno y colocar la key:
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/jbrayner123/Desarrollo-Movil.git
-cd Desarrollo-Movil
+cp .env.example .env
+```
 
-# 2. Cambiar a la rama del proyecto que desees revisar:
-git checkout parcial1-jose-brayner-minotta   # Examen Parcial 1: PWA + Ionic
-git checkout challenger-01                  # Reto 1: React Repaso
-git checkout challenger-02                  # Reto 2: PWA Netlify
-git checkout challenger-03                  # Reto 3: Ionic Task Manager + APK
-git checkout challenger-04                  # Reto 4: Ionic Storage & Auth
-git checkout challenger-05                  # Reto 5: Firebase Auth & Context API
-git checkout challenger-06                  # Reto 6: Firestore + Realtime DB + Dexie + Network
-git checkout challenger-07                  # Reto 7: Sensores Nativos + APK Android
-git checkout challenger-08                  # Reto 8: Supabase Auth + RLS + Realtime + Storage + APK
-git checkout challenger-09                  # Reto 9: Leaflet + Network + Haptics + Device + Preferences + APK
+```env
+VITE_GIPHY_API_KEY=tu_api_key_de_giphy
+```
 
-# 3. En cada rama, instalar dependencias y ejecutar:
-npm install
-npm run dev
+> El archivo `.env` esta en `.gitignore` y no se sube al repositorio.
+
+---
+
+## 2. Arquitectura de Directorios (`src/`)
+
+```text
+├── android/                         <-- Proyecto nativo Android (Capacitor)
+├── src/
+│   ├── api/
+│   │   └── giphyClient.ts           <-- Instancia de Axios: baseURL, timeout e interceptor de api_key
+│   ├── services/
+│   │   └── giphy.service.ts         <-- Interfaces de la respuesta, searchGifs() y mensajes de error
+│   ├── hooks/
+│   │   ├── useGifSearch.ts          <-- Estados (loading, error, gifs, vacio), paginacion y AbortController
+│   │   └── useDebouncedValue.ts     <-- Espera a que el usuario deje de escribir
+│   ├── components/
+│   │   └── GifCard.tsx              <-- Tarjeta plana de cada GIF
+│   ├── pages/
+│   │   └── GiphySearch.tsx          <-- Pagina principal: IonSearchbar, IonGrid e IonSpinner
+│   ├── theme/variables.css          <-- Tema plano y neutro
+│   ├── App.tsx                      <-- Enrutador Ionic
+│   └── main.tsx                     <-- Punto de entrada
+├── .env.example                     <-- Plantilla de VITE_GIPHY_API_KEY
+├── capacitor.config.ts              <-- appId: com.desarrollomovil.giphysearch
+└── challenger-10-debug.apk          <-- APK de pruebas para Android
 ```
 
 ---
 
-## 📱 Archivos APK Compilados para Pruebas en Android
+## 3. Funcionalidades Implementadas
 
-| Proyecto | Archivo APK | Ruta en el Repositorio |
-| :--- | :--- | :--- |
-| **Reto 3** | `TaskManager.apk` | En la rama [`challenger-03`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-03/TaskManager.apk) |
-| **Reto 7** | `challenger-07-debug.apk` | En la rama [`challenger-07`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-07/challenger-07-debug.apk) |
-| **Reto 8** | `challenger-08-debug.apk` | En la rama [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-08/challenger-08-debug.apk) |
-| **Reto 9** | `challenger-09-debug.apk` | En la rama [`challenger-09`](https://github.com/jbrayner123/Desarrollo-Movil/blob/challenger-09/challenger-09-debug.apk) |
+### A. Cliente HTTP centralizado (`src/api/giphyClient.ts`)
+- Instancia `axios.create` con `baseURL: https://api.giphy.com/v1` y `timeout` de 10 segundos.
+- Interceptor de peticion que agrega `api_key` desde `import.meta.env.VITE_GIPHY_API_KEY`, para que ningun servicio manipule la key directamente.
+
+### B. Servicio tipado (`src/services/giphy.service.ts`)
+- Interfaces de la respuesta: `GiphySearchResponse`, `GiphyGif`, `GiphyImages`, `GiphyImageRendition`, `GiphyPagination` y `GiphyMeta`.
+- `searchGifs(params, signal)` consume `GET /gifs/search` con los parametros:
+
+| Parametro | Valor |
+| :--- | :--- |
+| `q` | Texto escrito por el usuario |
+| `limit` | 24 por pagina |
+| `offset` | 0, 24, 48... (boton **Cargar mas**) |
+| `rating` | `"g"` |
+| `lang` | `"en"` |
+
+- Traduce los errores a mensajes entendibles: sin conexion, tiempo agotado, API Key invalida (401/403), limite de peticiones (429) y errores del servidor.
+- Convierte cada GIF a un modelo reducido (`Gif`) con solo los campos que usa la interfaz.
+
+### C. Concurrencia y cancelacion (`AbortController`)
+- Solo hay una peticion activa a la vez. Cada busqueda nueva aborta la anterior.
+- La busqueda se lanza 450 ms despues de la ultima tecla (debounce), o al instante con Enter o el boton **Buscar**.
+- Al salir de la vista (`useIonViewWillLeave`) o desmontar el componente se cancela la peticion pendiente.
+- Una respuesta tardia nunca sobrescribe una busqueda mas reciente.
+
+### D. Estados de la interfaz
+| Estado | Que se muestra |
+| :--- | :--- |
+| Inicial | Mensaje de bienvenida y sugerencias de busqueda |
+| Cargando | `IonSpinner` con el termino que se esta buscando |
+| Error | Mensaje claro y boton **Reintentar** |
+| Vacio | Aviso de que no hubo resultados para el termino |
+| Resultados | Cuadricula `IonGrid` / `IonRow` / `IonCol` (2 columnas en movil, 3 en tablet, 4 en escritorio) |
 
 ---
 
-## 👤 Información del Estudiante
+## 4. Ejecucion
 
-- **Estudiante**: José Brayner Minotta
-- **Asignatura**: Desarrollo de Aplicaciones Web y Móviles
-- **Repositorio Oficial**: [https://github.com/jbrayner123/Desarrollo-Movil](https://github.com/jbrayner123/Desarrollo-Movil)
+```bash
+npm install
+cp .env.example .env     # colocar la API Key de GIPHY
+npm run dev              # http://localhost:5177
+```
+
+### Compilar el APK
+
+```bash
+npm run build
+npx cap sync android
+cd android && ./gradlew assembleDebug
+```
+
+---
+
+## 5. Lineamientos de Diseno
+
+- Sin emojis en la interfaz. Los titulos que llegan de GIPHY se filtran para quitarles los emojis.
+- Sin gradientes. Fondo gris neutro, tarjetas blancas con borde de 1 px y botones solidos sin sombra.
+- Componentes oficiales de `@ionic/react` en modo `md`.
+
+---
+
+## Estudiante
+
+- **Estudiante**: Jose Brayner Minotta
+- **Asignatura**: Desarrollo de Aplicaciones Web y Moviles
+- **Repositorio**: [https://github.com/jbrayner123/Desarrollo-Movil](https://github.com/jbrayner123/Desarrollo-Movil)

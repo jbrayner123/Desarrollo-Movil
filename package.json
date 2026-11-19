@@ -1,0 +1,31 @@
+{
+  "name": "challenger-10-giphy",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/cli": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@ionic/react": "^8.8.20",
+    "@ionic/react-router": "^8.8.20",
+    "axios": "^1.21.1",
+    "ionicons": "^8.1.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^5.3.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "~5.9",
+    "vite": "^8.3.8"
+  }
+}

@@ -42,3 +42,8 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Challenge 10: la API Key de GIPHY no se versiona
+.env
+!.env.example
+!**/challenger-10-debug.apk
