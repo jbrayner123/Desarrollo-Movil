@@ -1,0 +1,73 @@
+@use '../../theme/tokens' as *;
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.pin {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid $surface;
+  box-shadow: 0 2px 8px rgba(17, 19, 24, 0.25);
+  transition: transform $fast $ease;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+}
+
+.pinLost {
+  background: #ff5fb4;
+}
+
+.pinWalk {
+  background: #1fbf85;
+}
+
+.pinVet {
+  background: $blue;
+}
+
+.pinShop {
+  background: #f2a900;
+}
+
+// Ubicacion del usuario con un halo que respira suavemente.
+.user {
+  position: relative;
+  display: block;
+  width: 28px;
+  height: 28px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(17, 19, 24, 0.18);
+    animation: breathe 2.4s ease-in-out infinite;
+  }
+
+  span {
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    background: $ink;
+    border: 3px solid $yellow;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.3;
+  }
+}

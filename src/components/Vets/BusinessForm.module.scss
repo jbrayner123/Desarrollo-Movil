@@ -1,0 +1,94 @@
+@use '../../theme/tokens' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.label {
+  display: block;
+  margin-bottom: $space-2;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    height: 50px;
+    padding: 0 $space-4;
+    border: 1px solid $border-strong;
+    border-radius: $radius-md;
+    background: $surface;
+    font: inherit;
+    font-size: 0.94rem;
+    color: $ink;
+    outline: none;
+    transition: border-color $fast $ease;
+
+    &:focus {
+      border-color: $ink;
+    }
+
+    &::placeholder {
+      color: $subtle;
+    }
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+}
+
+input.invalid {
+  border-color: $danger;
+}
+
+.error {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #b4262b;
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+
+  button {
+    @include reset-button;
+    @include pressable(0.95);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 38px;
+    padding: 0 $space-4;
+    border-radius: $radius-pill;
+    background: $surface;
+    border: 1px solid $border-strong;
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+
+  .serviceActive {
+    background: $ink;
+    border-color: $ink;
+    color: #ffffff;
+  }
+}
+
+// Telefono y horario: las dos columnas caben en pantallas angostas.
+.row > * {
+  min-width: 0;
+}
+
+.field input {
+  width: 100%;
+  min-width: 0;
+}

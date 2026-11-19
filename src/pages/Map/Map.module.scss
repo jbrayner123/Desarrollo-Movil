@@ -1,0 +1,213 @@
+@use '../../theme/tokens' as *;
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mapCard {
+  position: relative;
+  height: 46vh;
+  min-height: 300px;
+  overflow: hidden;
+  margin-bottom: $space-6;
+  border-radius: $radius-lg;
+  border: 1px solid $border;
+  box-shadow: $shadow-card;
+  // Leaflet crea su propio contexto de apilamiento; se aisla para no tapar la barra inferior.
+  isolation: isolate;
+}
+
+.legend {
+  position: absolute;
+  left: $space-3;
+  bottom: $space-3;
+  z-index: 500;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2 $space-3;
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+  background: $surface;
+  box-shadow: $shadow-card;
+  font-size: 0.72rem;
+  font-weight: 600;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+}
+
+.dotLost {
+  background: #ff5fb4;
+}
+
+.dotWalk {
+  background: #1fbf85;
+}
+
+.dotVet {
+  background: $blue;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-3;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 0.82rem;
+    color: $muted;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.placeRow {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-3 $space-3 $space-4;
+  margin-bottom: $space-3;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  transition: border-color $base $ease;
+}
+
+.placeActive {
+  border-color: $ink;
+}
+
+.place {
+  @include reset-button;
+  @include pressable(0.98);
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  text-align: left;
+}
+
+.kind {
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-sm;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.perdido {
+  background: $pink;
+}
+
+.paseo {
+  background: $mint;
+}
+
+.veterinaria {
+  background: $lavender;
+}
+
+.placeText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  small {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  strong {
+    font-size: 0.94rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: $muted;
+  }
+}
+
+.go {
+  @include reset-button;
+  @include pressable(0.9);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: $bg;
+  font-size: 18px;
+  color: $ink;
+}
+
+.dotShop {
+  background: #f2a900;
+}
+
+.petshop {
+  background: $butter;
+}
+
+.locateButton {
+  @include reset-button;
+  @include pressable(0.9);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 20px;
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin-bottom: $space-4;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  ion-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+}

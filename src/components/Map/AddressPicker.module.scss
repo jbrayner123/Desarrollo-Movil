@@ -1,0 +1,215 @@
+@use '../../theme/tokens' as *;
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  height: 54px;
+  padding: 0 $space-4;
+  border: 1px solid $border-strong;
+  border-radius: $radius-md;
+  background: $surface;
+  transition: border-color $fast $ease;
+
+  &:focus-within {
+    border-color: $ink;
+  }
+
+  ion-icon {
+    font-size: 20px;
+    color: $muted;
+    flex-shrink: 0;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.94rem;
+    color: $ink;
+    outline: none;
+  }
+}
+
+.searchError {
+  border-color: $danger;
+}
+
+.results {
+  list-style: none;
+  margin: -$space-1 0 0;
+  padding: $space-1;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  animation: enter-up 200ms $ease both;
+
+  button {
+    @include reset-button;
+    width: 100%;
+    display: flex;
+    gap: $space-3;
+    padding: $space-3;
+    border-radius: $radius-sm;
+    text-align: left;
+    cursor: pointer;
+
+    &:active,
+    &:hover {
+      background: $bg;
+    }
+
+    ion-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 18px;
+    }
+  }
+
+  span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  strong {
+    font-size: 0.9rem;
+  }
+
+  small {
+    font-size: 0.76rem;
+    color: $muted;
+  }
+}
+
+.locate {
+  @include reset-button;
+  @include pressable(0.97);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  height: 46px;
+  border-radius: $radius-pill;
+  background: $surface;
+  border: 1px solid $border-strong;
+  font-size: 0.88rem;
+  font-weight: 700;
+
+  ion-icon {
+    font-size: 19px;
+  }
+}
+
+.map {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-radius: $radius-md;
+  border: 1px solid $border;
+  isolation: isolate;
+}
+
+.leaflet {
+  width: 100%;
+  height: 100%;
+}
+
+.mapHint {
+  position: absolute;
+  inset: auto $space-3 $space-3;
+  z-index: 500;
+  padding: $space-2 $space-3;
+  border-radius: $radius-sm;
+  background: $surface;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.resolving {
+  position: absolute;
+  top: $space-2;
+  right: $space-2;
+  z-index: 500;
+  padding: 2px $space-2;
+  border-radius: $radius-pill;
+  background: $surface;
+}
+
+.pin {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: $ink;
+  border: 3px solid $yellow;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 10px rgba(17, 19, 24, 0.3);
+}
+
+.dragHint {
+  margin-top: -$space-1;
+  font-size: 0.76rem;
+  color: $muted;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: $space-2;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: $muted;
+  }
+
+  input {
+    height: 44px;
+    padding: 0 $space-3;
+    border: 1px solid $border-strong;
+    border-radius: $radius-sm;
+    background: $surface;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: $ink;
+    outline: none;
+
+    &:focus {
+      border-color: $ink;
+    }
+  }
+}
+
+.notice {
+  padding: $space-2 $space-3;
+  border-radius: $radius-sm;
+  background: #fdf3df;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7a5200;
+}
+
+.fields > * {
+  min-width: 0;
+}
+
+.fields input {
+  width: 100%;
+  min-width: 0;
+}

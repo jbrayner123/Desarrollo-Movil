@@ -1,0 +1,178 @@
+@use '../../theme/tokens' as *;
+
+.loading {
+  display: grid;
+  place-items: center;
+  padding: $space-8 0;
+}
+
+.status {
+  display: flex;
+  gap: $space-3;
+  padding: $space-4 $space-5;
+  margin-bottom: $space-4;
+  border-radius: $radius-lg;
+
+  > ion-icon {
+    flex-shrink: 0;
+    font-size: 26px;
+  }
+
+  strong {
+    font-size: 0.98rem;
+    font-weight: 800;
+  }
+
+  p {
+    margin-top: 2px;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: $ink-soft;
+  }
+}
+
+.verified {
+  background: $mint;
+}
+
+.pending {
+  background: $butter;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+  margin-bottom: $space-4;
+
+  div {
+    @include card;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: $space-4;
+  }
+
+  strong {
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+
+  span {
+    font-size: 0.78rem;
+    color: $muted;
+  }
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  ion-icon {
+    color: $yellow;
+    font-size: 20px;
+  }
+}
+
+.actions,
+.editorActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+  margin-bottom: $space-6;
+}
+
+%button {
+  @include reset-button;
+  @include pressable(0.97);
+  height: 50px;
+  border-radius: $radius-pill;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  ion-icon {
+    font-size: 19px;
+  }
+}
+
+.primary {
+  @extend %button;
+  background: $ink;
+  color: #ffffff;
+}
+
+.secondary {
+  @extend %button;
+  background: $surface;
+  border: 1px solid $border-strong;
+}
+
+.editHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-3;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+.editButton {
+  @include reset-button;
+  @include pressable(0.95);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 $space-4;
+  border-radius: $radius-pill;
+  background: $yellow;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.editor {
+  animation: enter-up 280ms $ease both;
+
+  .editorActions {
+    margin-top: $space-6;
+  }
+}
+
+.summary {
+  @include card;
+  margin: 0;
+  padding: $space-2 $space-5;
+
+  div {
+    padding: $space-3 0;
+
+    & + div {
+      border-top: 1px solid $border;
+    }
+  }
+
+  dt {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  dd {
+    margin: 2px 0 0;
+    font-size: 0.92rem;
+  }
+}
