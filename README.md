@@ -1,6 +1,20 @@
 # Desarrollo de Aplicaciones Web y Móviles
 
-Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **10 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React**, **Capacitor**, **Firebase** (Auth, Cloud Firestore, Realtime Database), **Dexie.js (IndexedDB)**, **Sensores Nativos de Hardware**, **Supabase** (Auth, PostgreSQL RLS, Realtime y Storage), **Mapas con Leaflet** integrados con sensores de Capacitor y geocodificación con OpenCage, y **Consumo de APIs externas** (GIPHY) con Axios.
+Repositorio principal de la asignatura **Desarrollo Móvil**, que recopila el **Primer Examen Parcial** y los **10 Retos Prácticos (Challengers)** desarrollados con **React**, **Vite**, **Ionic React**, **Capacitor**, **Firebase** (Auth, Cloud Firestore, Realtime Database), **Dexie.js (IndexedDB)**, **Sensores Nativos de Hardware**, **Supabase** (Auth, PostgreSQL RLS, Realtime y Storage), **Mapas con Leaflet** integrados con sensores de Capacitor y geocodificación con OpenCage, y **Consumo de APIs externas** (GIPHY) con Axios, además del **Proyecto Final: Manada**, desarrollado en equipo con **Gabriela Chávez**.
+
+---
+
+## Proyecto Final: Manada
+
+**Red social y comunidad de mascotas en Cali.** Conecta a las familias con mascotas, las veterinarias y las tiendas de mascotas: momentos y paseos, reportes de mascotas perdidas, mapa de la comunidad, directorio con reseñas y chat en tiempo real con ubicación compartida.
+
+Un proyecto de **José Brayner Minotta Ruiz** y **Gabriela Chávez** ([@Chavezgaby08](https://github.com/Chavezgaby08)).
+
+**[Ver el proyecto en la rama `proyecto-final`](https://github.com/jbrayner123/Desarrollo-Movil/tree/proyecto-final)** · [Prototipo en Lovable](https://lovable.dev/preview/dHw1Cri5Sg5MDZilffmWwVOv42qVmFNA)
+
+Ionic React · TypeScript · Capacitor · Firebase (Auth y Firestore en tiempo real) · Cloudinary · Leaflet · OpenCage · Dexie · Cámara, GPS, notificaciones, red, vibración y batería.
+
+[![Pantallas de Manada](https://raw.githubusercontent.com/jbrayner123/Desarrollo-Movil/proyecto-final/docs/screenshots/00-resumen.jpg)](https://github.com/jbrayner123/Desarrollo-Movil/tree/proyecto-final)
 
 ---
 
@@ -21,6 +35,7 @@ Cada proyecto se encuentra alojado en una **rama independiente** con sus depende
 | [`challenger-08`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-08) | **Reto 8: Supabase Auth, PostgreSQL RLS, Realtime y Storage** | Ionic React + TypeScript + Capacitor + Supabase + APK Android | Autenticación con Supabase Auth, CRUD de tareas con Row Level Security (RLS), sincronización reactiva en vivo con Supabase Realtime (`postgres_changes`), captura de fotos con la cámara nativa (`@capacitor/camera`) y subida de avatar a Supabase Storage con políticas por usuario, con APK compilado `challenger-08-debug.apk`. |
 | [`challenger-09`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-09) | **Reto 9: Mapas con Leaflet y Sensores Nativos** | Ionic React + TypeScript + Capacitor + Leaflet + OpenCage + APK Android | Mapa interactivo con `react-leaflet` y seguimiento de ruta GPS (`@capacitor/geolocation`), verificación de red antes de consultar OpenCage o recargar el mapa (`@capacitor/network`), vibración al iniciar y detener el tracking (`@capacitor/haptics`), parada automática con batería por debajo del 15% (`@capacitor/device`), historial de rutas en JSON con `@capacitor/preferences` y geocodificación inversa con OpenCage Data, con APK compilado `challenger-09-debug.apk`. |
 | [`challenger-10`](https://github.com/jbrayner123/Desarrollo-Movil/tree/challenger-10) | **Reto 10: Consumo de APIs Externas con GIPHY** | Ionic React + TypeScript + Axios + Capacitor + APK Android | Buscador de GIFs que consume `GET /gifs/search` de la API de GIPHY con una instancia centralizada de Axios (`q`, `limit`, `offset`, `rating: "g"`, `lang: "en"`), API Key en variables de entorno (`VITE_GIPHY_API_KEY`), cancelación de búsquedas anteriores con `AbortController`, estados explícitos de carga, error, vacío y resultados, cuadrícula responsiva con `IonGrid` e `IonSpinner`, con APK compilado `challenger-10-debug.apk`. |
+| [`proyecto-final`](https://github.com/jbrayner123/Desarrollo-Movil/tree/proyecto-final) | **Proyecto Final: Manada** (José Brayner Minotta Ruiz y Gabriela Chávez) | Ionic React + TypeScript + Capacitor + Firebase + Cloudinary + Leaflet + OpenCage + Dexie + APK Android | Red social de mascotas en Cali con cuentas de dueño, veterinaria, petshop y administrador: feed en tiempo real (momentos, paseos, mascotas perdidas, tips y promociones), publicaciones con cámara y GPS, mapa de la comunidad, directorio con reseñas y verificación, chat en tiempo real con ubicación compartida, panel de negocio, panel de administración, reglas de seguridad de Firestore, notificaciones locales y modo sin conexión con Dexie. |
 
 ---
 
@@ -45,6 +60,7 @@ git checkout challenger-07                  # Reto 7: Sensores Nativos + APK And
 git checkout challenger-08                  # Reto 8: Supabase Auth + RLS + Realtime + Storage + APK
 git checkout challenger-09                  # Reto 9: Leaflet + Network + Haptics + Device + Preferences + APK
 git checkout challenger-10                  # Reto 10: API de GIPHY + Axios + AbortController + APK
+git checkout proyecto-final               # Proyecto Final: Manada (José Brayner Minotta Ruiz y Gabriela Chávez)
 
 # 3. En cada rama, instalar dependencias y ejecutar:
 npm install
@@ -68,5 +84,6 @@ npm run dev
 ## 👤 Información del Estudiante
 
 - **Estudiante**: José Brayner Minotta
+- **Proyecto Final en equipo con**: Gabriela Chávez ([@Chavezgaby08](https://github.com/Chavezgaby08))
 - **Asignatura**: Desarrollo de Aplicaciones Web y Móviles
 - **Repositorio Oficial**: [https://github.com/jbrayner123/Desarrollo-Movil](https://github.com/jbrayner123/Desarrollo-Movil)
